@@ -5,8 +5,9 @@
     <title>TaskBoard</title>
 </head>
 <body>
-    <div id="taskBoardApp">
+    <div id="taskBoardApp" class="min-vh-100">
+        <app/>
     </div>
-    <script th:src="${isDevMode}?'http://localhost:8000/taskBoard.js':'/js/TaskBoard.js'"></script>
+    <script th:src="${isDevMode}?'http://localhost:8001/taskBoard.js':'/js/TaskBoard.js'"></script>
 </body>
 </html>

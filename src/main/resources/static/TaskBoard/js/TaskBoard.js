@@ -1,10 +1,19 @@
+import Vue from 'vue'
+import store from "./store/taskBoardStore";
+import { BootstrapVue, BootstrapVueIcons  } from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
 
-import taskBoardApp from "./Components/TaskBoardApp.vue";
-import { createApp } from 'vue'
-import taskBoardStore from './store/taskBoardStore'
-import { createVuetify } from 'vuetify'
-import 'vuetify/styles'
-const vuetify = createVuetify();
+import router from "./routes/routes";
 
-const app = createApp(taskBoardApp)
-app.use(taskBoardStore).use(vuetify).mount("#taskBoardApp");
+
+Vue.component('app',require('./Components/app.vue').default);
+const app = new Vue({
+    el: '#taskBoardApp',
+    router,
+    store:store
+})

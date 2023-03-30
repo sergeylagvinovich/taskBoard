@@ -1,10 +1,11 @@
-import {createStore} from "vuex";
+import Vue from 'vue';
+import Vuex from 'vuex';
+Vue.use(Vuex);
 import testModule from "./modules/testModule";
-const taskBoardStore = createStore({
-    modules: {
-        testModule: testModule
+const store = new Vuex.Store({
+    modules:{
+        testModule
     }
 })
-
-export default taskBoardStore;
+export default store;
 
