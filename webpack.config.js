@@ -6,7 +6,6 @@ module.exports = {
     devtool: 'source-map',
     entry: {
         taskBoard:path.join(__dirname, 'src', 'main', 'resources', 'static', 'TaskBoard', 'js', 'TaskBoard.js'),
-        main:path.join(__dirname, 'src', 'main', 'resources', 'static', 'css', 'main.css'),
         // auth:path.join(__dirname, 'src', 'main', 'resources', 'static', 'Auth', 'js', 'Auth.js'),
     },
     devServer: {

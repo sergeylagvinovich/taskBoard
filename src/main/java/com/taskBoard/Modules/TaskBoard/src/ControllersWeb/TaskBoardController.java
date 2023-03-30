@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/taskBoard")
 public class TaskBoardController {
-
-
     @GetMapping
     public String index(Model model){
         model.addAttribute("isDevMode",true);

@@ -4,7 +4,9 @@
         <div class="container min-vh-100">
             <div class="row">
                 <div class="col-12">
-                    <TaskBoardApp></TaskBoardApp>
+                     <transition name="fade" mode="out-in">
+                        <router-view/>
+                     </transition>
                 </div>
             </div>
         </div>
@@ -13,7 +15,7 @@
 
 <script>
 import Navbar from "./Navbar.vue";
-import TaskBoardApp from "./TaskBoardApp.vue";
+import TaskBoardApp from "./Home.vue";
 
 export default {
     name: "App",
@@ -22,5 +24,12 @@ export default {
 </script>
 
 <style scoped>
-
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
 </style>

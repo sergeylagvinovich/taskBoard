@@ -8,10 +8,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
-import router from "./routes/routes";
+import {router} from "./routes/routes";
 
 
-Vue.component('app',require('./Components/app.vue').default);
+Vue.component('app',require('./Components/App.vue').default);
 const app = new Vue({
     el: '#taskBoardApp',
     router,
