@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from "../Components/Home.vue";
-import Boards from "../Components/Boards.vue";
-import Groups from "../Components/Groups.vue";
-import About from "../Components/About.vue";
+import Home from "../Components/Home/Home.vue";
+import BoardsPage from "../Components/Home/Boards/BoardsPage.vue";
+import Groups from "../Components/Home/Groups/Groups.vue";
+import About from "../Components/About/About.vue";
 
 Vue.use(VueRouter);
 const baseUrl = '/taskBoard'
@@ -20,14 +20,14 @@ const routes = [
             {
                 // UserProfile will be rendered inside User's <router-view>
                 // when /user/:id/profile is matched
-                path: 'boards',
+                path: '',
                 name: "HomeBoards",
-                component: Boards,
+                component: BoardsPage,
             },
             {
                 // UserPosts will be rendered inside User's <router-view>
                 // when /user/:id/posts is matched
-                path: 'groups',
+                path: '',
                 name: "HomeGroups",
                 component: Groups,
             },

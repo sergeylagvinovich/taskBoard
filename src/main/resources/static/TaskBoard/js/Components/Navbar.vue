@@ -1,7 +1,7 @@
 <template>
     <div>
-        <b-navbar toggleable="lg" type="dark" variant="dark">
-            <b-navbar-brand href="#">Like trello</b-navbar-brand>
+        <b-navbar toggleable="lg" type="dark" variant="info">
+            <b-navbar-brand :to="{name:'HomeBoards'}">Like trello</b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -11,7 +11,6 @@
                     <b-nav-item :to="{ name: 'About' }" exact exact-active-class="active">{{lang['about']}}</b-nav-item>
                 </b-navbar-nav>
 
-                <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
                     <b-nav-form class="form-in">
                         <b-form-input size="sm" class="mr-sm-2" :placeholder="lang['placeholderSearchNavbar']"></b-form-input>
@@ -24,7 +23,6 @@
                     </b-nav-item-dropdown>
 
                     <b-nav-item-dropdown right>
-                        <!-- Using 'button-content' slot -->
                         <template #button-content>
                             <b-icon-emoji-sunglasses></b-icon-emoji-sunglasses>
                         </template>

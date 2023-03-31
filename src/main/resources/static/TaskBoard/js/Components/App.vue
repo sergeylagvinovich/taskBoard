@@ -15,7 +15,7 @@
 
 <script>
 import Navbar from "./Navbar.vue";
-import TaskBoardApp from "./Home.vue";
+import TaskBoardApp from "./Home/Home.vue";
 
 export default {
     name: "App",
@@ -24,12 +24,4 @@ export default {
 </script>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.5s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
 </style>

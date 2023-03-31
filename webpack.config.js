@@ -6,6 +6,7 @@ module.exports = {
     devtool: 'source-map',
     entry: {
         taskBoard:path.join(__dirname, 'src', 'main', 'resources', 'static', 'TaskBoard', 'js', 'TaskBoard.js'),
+        // main:path.join(__dirname, 'src', 'main', 'resources', 'static', 'css', 'main.css'),
         // auth:path.join(__dirname, 'src', 'main', 'resources', 'static', 'Auth', 'js', 'Auth.js'),
     },
     devServer: {
@@ -47,6 +48,7 @@ module.exports = {
         },
         modules: [
             path.join(__dirname, 'src', 'main', 'resources', 'static', 'js'),
+            path.join(__dirname, 'src', 'main', 'resources', 'static', 'css', 'main.css'),
             path.join(__dirname, 'src', 'main', 'resources', 'static', 'TaskBoard', 'js', 'TaskBoard.js'),
             path.join(__dirname, 'src', 'main', 'resources', 'static', 'TaskBoard', 'js', 'Auth.js'),
             path.join(__dirname, 'node_modules'),

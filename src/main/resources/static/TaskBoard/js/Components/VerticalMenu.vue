@@ -1,10 +1,10 @@
 <template>
-    <b-nav vertical class="w-100 bg-light" >
+    <b-nav vertical class="w-100 navbar navbar-dark" >
         <b-nav-item :to="{name:'HomeBoards'}">
-            <b-icon-card-list></b-icon-card-list> <label class="">{{lang['boards']}}</label>
+            <b-icon-card-list></b-icon-card-list> {{lang['boards']}}
         </b-nav-item>
         <b-nav-item :to="{name:'HomeGroups'}">
-            <b-icon-people></b-icon-people> <label class="">{{lang['groups']}}</label>
+            <b-icon-people></b-icon-people> {{lang['groups']}}
         </b-nav-item>
     </b-nav>
 </template>
