@@ -3,7 +3,7 @@
         <div class="col-12 mb-3 pr-0">
             <div class="boardGroup row bg-primary">
                 <div class="col-6">
-                    <label class="font-weight-bold pointer" style="color: white">{{ group.name }}</label>
+                    <label class="font-weight-bold pointer" @click="goTo('GroupBoards')" style="color: white">{{ group.name }}</label>
                 </div>
                 <div class="col-6 text-right" style="color: white; font-size: 20px">
                     <span
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapGetters, mapMutations} from "vuex";
 import Board from "./Board.vue";
 
 export default {
@@ -93,33 +93,15 @@ export default {
             'getLang':"languageModule/getLang",
         })
     },
+    methods:{
+        ...mapMutations({
+            'goTo':'routerModule/goTo',
+        })
+    }
 
 }
 </script>
 
 <style scoped>
-    .boardGroup{
-        border: 1px solid rgba(0,0,0,.125);
-        border-radius: 10px;
-        padding: 10px;
-        height: 50px;
-    }
-    .boardCardAdd {
-        text-align: center;
-        margin-bottom: 10px;
-        padding: 10px;
-        border: 1px solid rgba(0,0,0,.125);
-        border-radius: 10px;
-        height: 125px;
-        max-height: 125px;
-        width: 100%;
-        background-color: white;
-    }
-    .boardCardAdd:hover{
-        transition:background-color 0.5s;
-        background-color: #e9ecef;
-    }
-    .boardCardAdd:not(:hover){
-        transition:background-color 0.5s;
-    }
+
 </style>

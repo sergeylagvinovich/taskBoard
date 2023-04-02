@@ -5,13 +5,16 @@ import BoardsPage from "../Components/Home/Boards/BoardsPage.vue";
 import Groups from "../Components/Home/Groups/Groups.vue";
 import About from "../Components/About/About.vue";
 import GroupPage from "../Components/Group/GroupPage.vue";
+import GroupBoards from "../Components/Group/GroupTabs/GroupBoards.vue";
+import GroupSettings from "../Components/Group/GroupTabs/GroupSettings.vue";
+import GroupUsers from "../Components/Group/GroupTabs/GroupUsers.vue";
 
 Vue.use(VueRouter);
 const baseUrl = '/taskBoard'
 const routes = [
     {
         path: baseUrl+'/',
-        redirect: baseUrl+"/home/boards"
+        redirect: baseUrl+"/home"
     },
     {
         path: baseUrl+'/home',
@@ -42,13 +45,18 @@ const routes = [
         children: [
             {
                 path: '',
+                name: "GroupBoards",
+                component: GroupBoards,
+            },
+            {
+                path: '',
                 name: "GroupSettings",
-                component: BoardsPage,
+                component: GroupSettings,
             },
             {
                 path: '',
                 name: "GroupUsers",
-                component: Groups,
+                component: GroupUsers,
             },
         ],
     }

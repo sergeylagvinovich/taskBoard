@@ -20,3 +20,28 @@
 .scroll::-webkit-scrollbar {
     display: none;
 }
+
+.boardGroup{
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 10px;
+    padding: 10px;
+    height: 50px;
+}
+.boardCardAdd {
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 10px;
+    height: 125px;
+    max-height: 125px;
+    width: 100%;
+    background-color: white;
+}
+.boardCardAdd:hover{
+    transition:background-color 0.5s;
+    background-color: #e9ecef;
+}
+.boardCardAdd:not(:hover){
+    transition:background-color 0.5s;
+}

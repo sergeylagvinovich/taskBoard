@@ -18,5 +18,8 @@ export default {
     'group-board-arrow-bar-up':'Close',
     'your_groups':"Your groups",
     'recently_viewed':'Recently viewed',
-    'addBoard':'Add board'
+    'addBoard':'Add board',
+    //GroupPage
+    'settings':'Settings',
+    'users':'Участники',
 }

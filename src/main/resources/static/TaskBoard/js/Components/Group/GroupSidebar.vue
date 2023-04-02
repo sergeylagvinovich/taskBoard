@@ -25,7 +25,7 @@ export default {
 .sidebar-line{
     position: absolute;
     left: -380px;
-    height: 94vh;
+    height: 90vh;
     border-right: 1px solid rgba(0,0,0,.125);
 }
 .sidebar-button{
