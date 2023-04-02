@@ -10,3 +10,13 @@
 .fade-leave-to {
     opacity: 0;
 }
+
+.scroll{
+    overflow: auto;
+    height: 90vh;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scroll::-webkit-scrollbar {
+    display: none;
+}

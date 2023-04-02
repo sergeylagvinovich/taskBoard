@@ -2,30 +2,30 @@
   <div class="container-fluid">
       <b-skeleton-wrapper :loading="loading">
           <template #loading>
-              <b-card>
-                  <b-skeleton width="100%" height="50"></b-skeleton>
-              </b-card>
-          </template>
-          <div class="row">
-              <div class="col-12">
-                  <p style="color: #5e6c84; font-weight: bold"><b-icon-clock-history/> {{lang['recently_viewed']}}</p>
+              <div class="text-center" style="height: 90vh">
+                  <b-spinner variant="primary" label="Text Centered"></b-spinner>
               </div>
-          </div>
-          <div class="row">
-              <div class="col-12 mb-3 pr-0">
-                  <div class="row">
-                      <div class="col-3 pr-0" v-for="(item,itemIndex) in historyBoards" :key="itemIndex">
-                          <board :board="item" :key="itemIndex"></board>
+          </template>
+              <div class="row">
+                  <div class="col-12">
+                      <p style="color: #5e6c84; font-weight: bold"><b-icon-clock-history/> {{lang['recently_viewed']}}</p>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-12 mb-3 pr-0">
+                      <div class="row">
+                          <div class="col-3 pr-0" v-for="(item,itemIndex) in historyBoards" :key="itemIndex">
+                              <board :board="item" :key="itemIndex"></board>
+                          </div>
                       </div>
                   </div>
               </div>
-          </div>
-          <div class="row">
-              <div class="col-12">
-                  <p style="color: #5e6c84; font-weight: bold; text-transform: uppercase">{{ lang['your_groups'] }}</p>
+              <div class="row">
+                  <div class="col-12">
+                      <p style="color: #5e6c84; font-weight: bold; text-transform: uppercase">{{ lang['your_groups'] }}</p>
+                  </div>
               </div>
-          </div>
-          <BoardGroup v-for="(item,itemIndex) in boards" :group="item" :key="itemIndex"></BoardGroup>
+              <BoardGroup v-for="(item,itemIndex) in boards" :group="item" :key="itemIndex"></BoardGroup>
       </b-skeleton-wrapper>
   </div>
 </template>
@@ -57,7 +57,25 @@ export default {
             maxLoadingTime: 3,
 
             expand:false,
-            boards:null,
+            boards:[
+                {
+                    name:"Тестовая группа 1",
+                    boards:[
+                        {
+                            name:'Доска 1'
+                        },
+                        {
+                            name:'Доска 2'
+                        },
+                        {
+                            name:'Доска 3'
+                        },
+                        {
+                            name:'Доска 4'
+                        }
+                    ]
+                },
+            ],
             historyBoards:[
                 {
                     name:'Доска 1'

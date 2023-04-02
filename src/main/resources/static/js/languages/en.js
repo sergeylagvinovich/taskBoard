@@ -17,5 +17,6 @@ export default {
     'group-board-arrow-bar-down':'Open',
     'group-board-arrow-bar-up':'Close',
     'your_groups':"Your groups",
-    'recently_viewed':'Recently viewed'
+    'recently_viewed':'Recently viewed',
+    'addBoard':'Add board'
 }

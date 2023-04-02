@@ -1,7 +1,7 @@
 <template>
     <span>
         <navbar></navbar>
-        <div class="container min-vh-100">
+        <div class="container">
             <div class="row">
                 <div class="col-12">
                      <transition name="fade" mode="out-in">

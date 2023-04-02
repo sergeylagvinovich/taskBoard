@@ -17,6 +17,7 @@ export default {
     'group-board-arrow-bar-down':'Раскрыть',
     'group-board-arrow-bar-up':'Свернуть',
     'your_groups':"Ваши группы",
-    'recently_viewed':'Недавно просмотренное'
+    'recently_viewed':'Недавно просмотренное',
+    'addBoard':'Добавить доску'
 
 }
