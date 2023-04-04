@@ -3,8 +3,8 @@ export default {
     namespaced:true,
     mutations:{
         goTo(state,value){
-            console.log(value);
-            router.push({name:value});
+            if(router.app.$route.name!==value)
+                router.push({name:value});
         }
     }
 }

@@ -1,8 +1,8 @@
 <template>
     <b-tabs fill>
-        <b-tab :title="lang['boards']" @click="()=>{activeTab = 'GroupBoards'; goTo('GroupBoards');}" :active="activeTab==='GroupBoards'"></b-tab>
-        <b-tab :title="lang['users']" @click="()=>{activeTab = 'GroupUsers'; goTo('GroupUsers');}" :active="activeTab==='GroupUsers'"></b-tab>
-        <b-tab :title="lang['settings']" @click="()=>{activeTab = 'GroupSettings'; goTo('GroupSettings');}" :active="activeTab==='GroupSettings'"></b-tab>
+        <b-tab :title="lang['boards']" @click="goTo('GroupBoards')" :active="activeTab==='GroupBoards'"></b-tab>
+        <b-tab :title="lang['users']" @click="goTo('GroupUsers')" :active="activeTab==='GroupUsers'"></b-tab>
+        <b-tab :title="lang['settings']" @click="goTo('GroupSettings')" :active="activeTab==='GroupSettings'"></b-tab>
     </b-tabs>
 </template>
 
@@ -13,10 +13,14 @@ export default {
     name: "GroupTabs",
     data(){
         return{
-            activeTab:'GroupBoards'
+
         }
     },
     computed: {
+        activeTab(){
+            console.log(this.$route.name)
+            return this.$route.name;
+        },
         ...mapGetters({
             'getLang': 'languageModule/getLang'
         }),

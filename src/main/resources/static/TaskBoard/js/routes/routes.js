@@ -5,9 +5,9 @@ import BoardsPage from "../Components/Home/Boards/BoardsPage.vue";
 import Groups from "../Components/Home/Groups/Groups.vue";
 import About from "../Components/About/About.vue";
 import GroupPage from "../Components/Group/GroupPage.vue";
-import GroupBoards from "../Components/Group/GroupTabs/GroupBoards.vue";
+import GroupBoards from "../Components/Group/GroupTabs/Boards/GroupBoards.vue";
 import GroupSettings from "../Components/Group/GroupTabs/GroupSettings.vue";
-import GroupUsers from "../Components/Group/GroupTabs/GroupUsers.vue";
+import GroupUsers from "../Components/Group/GroupTabs/Members/GroupUsers.vue";
 
 Vue.use(VueRouter);
 const baseUrl = '/taskBoard'
@@ -49,12 +49,12 @@ const routes = [
                 component: GroupBoards,
             },
             {
-                path: '',
+                path: 'options',
                 name: "GroupSettings",
                 component: GroupSettings,
             },
             {
-                path: '',
+                path: 'members',
                 name: "GroupUsers",
                 component: GroupUsers,
             },

@@ -49,10 +49,10 @@
 </template>
 
 <script>
-import BoardGroup from "../../Home/Boards/BoardGroup.vue";
-import Board from "../../Home/Boards/Board.vue";
+import BoardGroup from "../../../Home/Boards/BoardGroup.vue";
+import Board from "../../../Home/Boards/Board.vue";
 import {mapGetters} from "vuex";
-import groups from "../../Home/Groups/Groups.vue";
+import groups from "../../../Home/Groups/Groups.vue";
 
 export default {
     name: "GroupBoards",

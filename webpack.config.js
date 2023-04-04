@@ -13,8 +13,14 @@ module.exports = {
         static: './dist',
         compress: true,
         port: 8001,
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+            "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+        },
         allowedHosts: [
-            'localhost:9999'
+            'localhost:9999',
+            'localhost:8001'
         ]
     },
     module: {

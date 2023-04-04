@@ -1,14 +1,15 @@
 <template>
     <div class="row">
         <div class="col-12 mb-3 pr-0">
-            <div class="boardGroup row bg-primary">
-                <div class="col-6">
+            <div class="boardGroup row bg-primary align-items-center ">
+                <div class="col-6 mx-auto">
                     <label class="font-weight-bold pointer" @click="goTo('GroupBoards')" style="color: white">{{ group.name }}</label>
                 </div>
-                <div class="col-6 text-right" style="color: white; font-size: 20px">
+                <div class="col-6 text-right mx-auto" style="color: white; font-size: 20px">
                     <span
                         class="pointer pr-2"
                         :id="group.id+'-'+'group-board-window-dock'"
+                        @click="goTo('GroupBoards')"
                         v-on:mouseover="tooltip='group-board-window-dock'"
                         v-on:mouseleave="tooltip=null"
                     >
@@ -17,6 +18,7 @@
                     <span
                         class="pointer pr-2"
                         :id="group.id+'-'+'group-board-person'"
+                        @click="goTo('GroupUsers')"
                         v-on:mouseover="tooltip='group-board-person'"
                         v-on:mouseleave="tooltip=null"
                     >
@@ -25,6 +27,7 @@
                     <span
                         class="pointer pr-2"
                         :id="group.id+'-'+'group-board-wrench'"
+                        @click="goTo('GroupSettings')"
                         v-on:mouseover="tooltip='group-board-wrench'"
                         v-on:mouseleave="tooltip=null"
                     >
@@ -41,7 +44,7 @@
                         <b-icon-arrow-bar-down v-show="expand"/>
                         <b-icon-arrow-bar-up v-show="!expand"/>
                     </span>
-                    <b-tooltip :target="group.id+'-'+tooltip" placement="top" triggers="hover" v-if="tooltip!==null">
+                    <b-tooltip :target="group.id+'-'+tooltip" placement="top" triggers="hover" v-if="tooltip">
                         {{lang[tooltip]}}
                     </b-tooltip>
                 </div>
