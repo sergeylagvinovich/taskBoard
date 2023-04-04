@@ -6,7 +6,7 @@ import Groups from "../Components/Home/Groups/Groups.vue";
 import About from "../Components/About/About.vue";
 import GroupPage from "../Components/Group/GroupPage.vue";
 import GroupBoards from "../Components/Group/GroupTabs/Boards/GroupBoards.vue";
-import GroupSettings from "../Components/Group/GroupTabs/GroupSettings.vue";
+import GroupSettings from "../Components/Group/GroupTabs/Settings/GroupSettings.vue";
 import GroupUsers from "../Components/Group/GroupTabs/Members/GroupUsers.vue";
 
 Vue.use(VueRouter);
