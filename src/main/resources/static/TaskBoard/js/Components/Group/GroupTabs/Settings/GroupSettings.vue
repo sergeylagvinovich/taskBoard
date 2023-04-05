@@ -30,14 +30,47 @@
                     </div>
                     <div class="row itemSetting align-items-center">
                         <div class="col-10">
-                            <p>Все участники рабочего пространства могут создавать публичные доски.</p>
-
-                            <p>Все участники рабочего пространства могут создавать доски, доступные для него.</p>
-
-                            <p>Все участники рабочего пространства могут создавать приватные доски.</p>
+                            <p>Все участники рабочего пространства могут создавать доски.</p>
                         </div>
                         <div class="col-2 mx-auto">
                             <button class="btn btn-outline-primary">Изменить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 sectionSettings">
+                    <div class="row headerSetting">
+                        <div class="col-12">
+                            Ограничения на удаления досок
+                        </div>
+                    </div>
+                    <div class="row itemSetting align-items-center">
+                        <div class="col-10">
+                            <p>Все участники рабочего пространства могут удалять доски.</p>
+                        </div>
+                        <div class="col-2 mx-auto">
+                            <button class="btn btn-outline-primary">Изменить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 sectionSettings">
+                    <div class="row headerSetting">
+                        <div class="col-12">
+                            Гостевой доступ к доске
+                        </div>
+                    </div>
+                    <div class="row itemSetting align-items-center">
+                        <div class="col-10">
+                            <p>Отправлять и получать приглашения в доски этого рабочего пространства могут только его участники.</p>
+                        </div>
+                        <div class="col-2 mx-auto">
+                            <button class="btn btn-outline-primary">Изменить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 sectionDelete">
+                    <div class="row itemSetting align-items-end">
+                        <div class="col-10">
+                            <label class="text-danger pointer deleteLabel" style="text-decoration: underline">Удалить раболее пространство?</label>
                         </div>
                     </div>
                 </div>
@@ -119,5 +152,11 @@ export default {
 }
 .sectionSettings{
     margin-bottom: 20px;
+}
+.sectionDelete{
+    margin-top: 50px;
+}
+.deleteLabel:hover{
+    color: black !important;
 }
 </style>
