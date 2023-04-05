@@ -3,7 +3,7 @@ export default {
     namespaced:true,
     mutations:{
         goTo(state,value){
-            if(router.re!==value)
+            if(router.app.$route.name!==value)
                 router.push({name:value});
         }
     }
