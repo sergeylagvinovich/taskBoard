@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    name: "GroupSidebar"
+    name: "BoardSidebar"
 }
 </script>
 

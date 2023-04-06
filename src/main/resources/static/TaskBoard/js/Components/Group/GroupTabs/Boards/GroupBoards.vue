@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 mb-3 pr-0">
+                <div class="col-12 mb-3">
                     <div class="row">
                         <div class="col-3 pr-0" v-for="(item,itemIndex) in historyBoards" :key="itemIndex">
                             <board :board="item" :key="itemIndex"></board>
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 mb-3 pr-0">
+                <div class="col-12 mb-3">
                     <div class="row">
                         <div class="col-3 pr-0" >
                             <div class="boardCardAdd pointer">

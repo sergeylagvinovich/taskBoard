@@ -3,7 +3,7 @@
       <div class="col-12">
           <Header/>
       </div>
-      <div class="col-12">
+      <div class="col-12 pr-0">
           <GroupTabs/>
       </div>
   </div>

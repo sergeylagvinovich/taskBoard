@@ -65,3 +65,18 @@
 .boardCardAdd:not(:hover){
     transition:background-color 0.5s;
 }
+
+.sidebar-line{
+    position: absolute;
+    left: 10px;
+    height: 94vh;
+    border-right: 1px solid rgba(0,0,0,.125);
+}
+.sidebar-button{
+    position: absolute;
+    left: -9px;
+    z-index: 1;
+    color: rgb(94, 108, 132);
+    background-color: white;
+    top: 18px;
+}
