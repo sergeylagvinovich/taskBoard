@@ -31,7 +31,8 @@ export default {
 
 <style scoped>
 .scroll{
-    height: 60vh;
+    height: 90vh;
+    min-height: 90vh;
 }
 .scroll-page{
     overflow: auto;
