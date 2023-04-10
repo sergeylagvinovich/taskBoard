@@ -9,7 +9,7 @@
                       </div>
                   </div>
                   <div class="row">
-                      <div class="col-12 scroll">
+                      <div class="col-12">
                           <transition name="fade" mode="out-in">
                               <router-view/>
                           </transition>
@@ -31,12 +31,12 @@ export default {
 
 <style scoped>
 .scroll{
-    height: 90vh;
-    min-height: 90vh;
+    height: 94vh;
+    min-height: 94vh;
 }
 .scroll-page{
     overflow: auto;
-    height: 90vh;
+    height: 94vh;
     -ms-overflow-style: none;
     scrollbar-width: none;
 }

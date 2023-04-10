@@ -7,19 +7,16 @@
                 </div>
             </template>
             <div class="row h-100">
-                <div class="col-12" style="border: 1px solid black">
+                <div class="col-12" style="border: 1px solid black;">
                         <draggable
                             :list="list"
-                            class="row"
+                            class="row overflowX"
                             tag="div"
                             @start="drag = true"
                             @end="drag = false"
                             @change="log"
                         >
-                            <!--                        v-bind="dragOptions"-->
-                            <!--                        <transition-group type="transition" :tag="" :name="!drag ? 'flip-list' : null">-->
                             <Tasks v-for="item in list" :key="item.id" class="list-group" :group-name="item.name" :tasks="item.tasks"></Tasks>
-                            <!--                        </transition-group>-->
                         </draggable>
                 </div>
             </div>
@@ -128,6 +125,72 @@ export default {
                         },
                     ]
                 },
+                {
+                    id:4,
+                    name:"Группа 3",
+                    tasks:[
+                        {
+                            id:13,
+                            name:"vue.js 2.0",
+                        },
+                        {
+                            id:14,
+                            name:"based",
+                        },
+                        {
+                            id:15,
+                            name:"on",
+                        },
+                        {
+                            id:16,
+                            name:"Sortablejs",
+                        },
+                    ]
+                },
+                {
+                    id:5,
+                    name:"Группа 3",
+                    tasks:[
+                        {
+                            id:17,
+                            name:"vue.js 2.0",
+                        },
+                        {
+                            id:18,
+                            name:"based",
+                        },
+                        {
+                            id:19,
+                            name:"on",
+                        },
+                        {
+                            id:20,
+                            name:"Sortablejs",
+                        },
+                    ]
+                },
+                {
+                    id:6,
+                    name:"Группа 3",
+                    tasks:[
+                        {
+                            id:21,
+                            name:"vue.js 2.0",
+                        },
+                        {
+                            id:22,
+                            name:"based",
+                        },
+                        {
+                            id:23,
+                            name:"on",
+                        },
+                        {
+                            id:24,
+                            name:"Sortablejs",
+                        },
+                    ]
+                },
             ],
 
             drag: false
@@ -202,5 +265,11 @@ export default {
 
 .list-group-item i {
     cursor: pointer;
+}
+
+.overflowX{
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    min-height: 90vh;
 }
 </style>

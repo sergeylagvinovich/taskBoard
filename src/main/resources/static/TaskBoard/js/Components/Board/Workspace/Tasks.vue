@@ -1,12 +1,12 @@
 <template>
-    <div class="col-3">
+    <div class="col-2 align-self-start mr-2 ml-2" style="display: inline-block;">
         <div class="row">
             <div class="col-12">
                 <h3>{{ groupName }}</h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 scroll">
                 <draggable
                         class="list-group"
                         tag="ul"
@@ -109,5 +109,11 @@ export default {
 
 .list-group-item i {
     cursor: pointer;
+}
+
+
+.scroll{
+    height: auto;
+    max-height: 80vh;
 }
 </style>
