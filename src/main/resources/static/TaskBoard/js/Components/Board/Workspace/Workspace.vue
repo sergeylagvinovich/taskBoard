@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid h-100">
+    <div class="container-fluid h-100 container_board">
         <b-skeleton-wrapper :loading="loading">
             <template #loading>
                 <div class="text-center" style="height: 90vh">
@@ -7,7 +7,7 @@
                 </div>
             </template>
             <div class="row h-100">
-                <div class="col-12" style="border: 1px solid black;">
+                <div class="col-12 pr-0">
                         <draggable
                             :list="list"
                             class="row overflowX"
@@ -16,7 +16,9 @@
                             @end="drag = false"
                             @change="log"
                         >
-                            <Tasks v-for="item in list" :key="item.id" class="list-group" :group-name="item.name" :tasks="item.tasks"></Tasks>
+<!--                            <transition-group type="transition" :name="!drag ? 'flip-list' : null" tag="div" class="row">-->
+                                <Tasks v-for="item in list" :key="item.id" class="list-group" :group-name="item.name" :tasks="item.tasks"></Tasks>
+<!--                            </transition-group>-->
                         </draggable>
                 </div>
             </div>
@@ -65,11 +67,11 @@ export default {
                   tasks:[
                       {
                           id:1,
-                          name:"vue.draggable",
+                          name:"asdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssssasdddddddssssssssssssssssssssssssssssssssssssssssssssssssssss",
                       },
                       {
                           id:2,
-                          name:"draggable",
+                          name:"Страница с участниками группы sadasdasdsadsdfsdfsdfdsfs asdw ssss",
                       },
                       {
                           id:3,
@@ -257,10 +259,8 @@ export default {
     border: 1px solid rgba(0,0,0,.125);
     padding: 10px;
     background-color: #e9ecef;
-}
-
-.list-group-item {
-    cursor: move;
+    text-align: justify;
+    word-wrap: anywhere;
 }
 
 .list-group-item i {
@@ -271,5 +271,27 @@ export default {
     overflow-x: auto;
     flex-wrap: nowrap;
     min-height: 90vh;
+    /*scrollbar-width: none;*/
+}
+.container_board{
+    padding: 0;
+}
+
+.overflowX::-webkit-scrollbar {
+    width: 20px;
+}
+
+.overflowX::-webkit-scrollbar-track {
+    background-color: #666b7a;
+    opacity: 0.8;
+    border-radius: 100px;
+}
+
+.overflowX::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    border: 6px solid rgba(0, 0, 0, 0.18);
+    border-left: 0;
+    border-right: 0;
+    background-color: #8070d4;
 }
 </style>

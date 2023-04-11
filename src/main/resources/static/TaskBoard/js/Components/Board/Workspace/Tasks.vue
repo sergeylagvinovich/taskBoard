@@ -1,12 +1,15 @@
 <template>
-    <div class="col-2 align-self-start mr-2 ml-2" style="display: inline-block;">
+    <div class="col-2 align-self-start mr-2 ml-2" style="display: inline-block; opacity: 0.8">
         <div class="row">
             <div class="col-12">
-                <h3>{{ groupName }}</h3>
+                <h5>{{ groupName }}</h5>
+            </div>
+            <div class="col-12">
+                <h6>Карточек: {{ tasks.length }}</h6>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 scroll">
+        <div class="row" style="margin-right: -10px">
+            <div class="col-12 tasksScroll">
                 <draggable
                         class="list-group"
                         tag="ul"
@@ -15,9 +18,8 @@
                         @start="drag = true"
                         @end="drag = false"
                 >
-                    <transition-group type="transition" :name="!drag ? 'flip-list' : null">
                         <li
-                                class="list-group-item"
+                                class="list-group-item text-justify"
                                 v-for="(element,index) in tasks"
                                 :key="element.id"
                         >
@@ -28,18 +30,21 @@
                             ></i>
                             {{ element.name }}
                         </li>
-                    </transition-group>
-                    <!--            <template :slot="header">-->
-                    <!--                <div-->
-                    <!--                        slot="header"-->
-                    <!--                        class="btn-group list-group-item"-->
-                    <!--                        role="group"-->
-                    <!--                        aria-label="Basic example"-->
-                    <!--                >-->
-                    <!--                    <h1>{{groupName}}</h1>-->
-                    <!--                </div>-->
-                    <!--            </template>-->
                 </draggable>
+            </div>
+        </div>
+        <div class="row mt-3" style="min-height: 40px">
+            <div class="col-12">
+                <div class="row align-items-center">
+                    <div class="col-9 pr-0 pl-0 pointer pointEvent" style="margin-left: 15px; border-radius: 5px">
+                        <a class="btn">
+                            <b-icon-plus-square/> Добваить карточку
+                        </a>
+                    </div>
+                    <div class="col-2 p-0 text-center pointer pointEvent" style="font-size: 25px;  border-radius: 5px">
+                        <b-icon-card-list class="pointer" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -82,8 +87,13 @@ export default {
 </script>
 
 <style scoped>
-.columnTasks {
+.pointEvent:hover {
+    transition: background-color 0.5s;
+    background-color: #dbdbdb;
+}
 
+.pointEvent{
+    -webkit-transition: background-color 0.5s;
 }
 
 .flip-list-move {
@@ -100,11 +110,19 @@ export default {
 }
 
 .list-group {
-    padding: 10px;
+
+}
+.list-group-item:hover {
+    transition: opacity 0.5s;
+    opacity: 0.7;
 }
 
+
 .list-group-item {
-    cursor: move;
+    cursor: pointer;
+    -webkit-transition: opacity 0.5s;
+    margin-bottom: 10px;
+    border-radius: 15px;
 }
 
 .list-group-item i {
@@ -112,8 +130,27 @@ export default {
 }
 
 
-.scroll{
+.tasksScroll{
+    overflow: auto;
     height: auto;
-    max-height: 80vh;
+    max-height: 75vh;
+}
+
+.tasksScroll::-webkit-scrollbar {
+    width: 20px;
+}
+
+.tasksScroll::-webkit-scrollbar-track {
+    background-color: #666b7a;
+    opacity: 0.8;
+    border-radius: 100px;
+}
+
+.tasksScroll::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    border: 6px solid rgba(0, 0, 0, 0.18);
+    border-left: 0;
+    border-right: 0;
+    background-color: #8070d4;
 }
 </style>
