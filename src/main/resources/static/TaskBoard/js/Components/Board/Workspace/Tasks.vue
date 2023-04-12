@@ -14,12 +14,14 @@
                         class="list-group"
                         tag="ul"
                         :list="tasks"
+                        draggable=".item"
+                        :group="{ name: 'tasks'}"
                         v-bind="dragOptions"
                         @start="drag = true"
                         @end="drag = false"
                 >
                         <li
-                                class="list-group-item text-justify"
+                                class="list-group-item text-justify item"
                                 v-for="(element,index) in tasks"
                                 :key="element.id"
                         >
@@ -36,12 +38,10 @@
         <div class="row mt-3" style="min-height: 40px">
             <div class="col-12">
                 <div class="row align-items-center">
-                    <div class="col-9 pr-0 pl-0 pointer pointEvent" style="margin-left: 15px; border-radius: 5px">
-                        <a class="btn">
-                            <b-icon-plus-square/> Добваить карточку
-                        </a>
+                    <div class="col-9 pr-0 pl-0 pointer btn btn-outline-primary" style="margin-left: 15px; border-radius: 5px">
+                        <b-icon-plus-square/> Добавить карточку
                     </div>
-                    <div class="col-2 p-0 text-center pointer pointEvent" style="font-size: 25px;  border-radius: 5px">
+                    <div class="col-2 p-0 text-center pointer btn btn-primary" style="font-size: 24px;">
                         <b-icon-card-list class="pointer" />
                     </div>
                 </div>
@@ -77,7 +77,7 @@ export default {
         dragOptions() {
             return {
                 animation: 100,
-                group: "description",
+                group: "tasks",
                 disabled: false,
                 ghostClass: "ghost"
             };
@@ -89,7 +89,7 @@ export default {
 <style scoped>
 .pointEvent:hover {
     transition: background-color 0.5s;
-    background-color: #dbdbdb;
+    background-color: #6c757d;
 }
 
 .pointEvent{

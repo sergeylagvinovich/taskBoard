@@ -12,13 +12,14 @@
                             :list="list"
                             class="row overflowX"
                             tag="div"
+                            :group="{ name: 'cards'}"
+                            draggable=".list-group"
+                            v-bind="dragOptions"
                             @start="drag = true"
                             @end="drag = false"
                             @change="log"
                         >
-<!--                            <transition-group type="transition" :name="!drag ? 'flip-list' : null" tag="div" class="row">-->
-                                <Tasks v-for="item in list" :key="item.id" class="list-group" :group-name="item.name" :tasks="item.tasks"></Tasks>
-<!--                            </transition-group>-->
+                              <Tasks v-for="item in list" :key="item.id" class="list-group" :group-name="item.name" :tasks="item.tasks"></Tasks>
                         </draggable>
                 </div>
             </div>
@@ -49,9 +50,9 @@ export default {
         dragOptions() {
             return {
                 animation: 100,
-                group: "description",
+                group: "cards",
                 disabled: false,
-                ghostClass: "ghost"
+                ghostClass: "ghostGroup"
             };
         }
     },
@@ -249,9 +250,9 @@ export default {
     transition: transform 0s;
 }
 
-.ghost {
-    opacity: 0.5;
-    background: #c8ebfb;
+.ghostGroup {
+    opacity: 0.5!important;
+    background: #c8ebfb!important;
 }
 
 .list-group {
