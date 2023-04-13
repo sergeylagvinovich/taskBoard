@@ -24,6 +24,7 @@
                 </div>
             </div>
         </b-skeleton-wrapper>
+        <router-view></router-view>
     </div>
 </template>
 

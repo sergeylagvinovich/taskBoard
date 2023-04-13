@@ -11,6 +11,7 @@ import GroupUsers from "../Components/Group/GroupTabs/Members/GroupUsers.vue";
 import PageNotFound from "../Components/PageNotFound.vue";
 import BoardPage from "../Components/Board/BoardPage.vue";
 import Workspace from "../Components/Board/Workspace/Workspace.vue";
+import TaskCard from "../Components/Board/Workspace/TaskCard/TaskCard.vue";
 
 Vue.use(VueRouter);
 const baseUrl = '/taskBoard'
@@ -64,14 +65,21 @@ const routes = [
         ],
     },
     {
-        path: baseUrl+'/board',
+        path: baseUrl+'/boards',
         name: 'Board',
         component: BoardPage,
         children: [
             {
-                path: '',
+                path: ':boardId',
                 name: "BoardWorkspace",
                 component: Workspace,
+                children: [
+                    {
+                        path: 'tasks/:taskId',
+                        name: "TaskCard",
+                        component: TaskCard,
+                    }
+                ]
             },
             {
                 path: 'options',

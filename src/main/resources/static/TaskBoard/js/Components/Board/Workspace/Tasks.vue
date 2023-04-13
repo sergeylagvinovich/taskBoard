@@ -20,19 +20,8 @@
                         @start="drag = true"
                         @end="drag = false"
                 >
-                        <li
-                                class="list-group-item text-justify item"
-                                v-for="(element,index) in tasks"
-                                :key="element.id"
-                        >
-                            <i
-                                    :class="element.fixed ? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'"
-                                    @click="element.fixed = !element.fixed"
-                                    aria-hidden="true"
-                            ></i>
-                            {{ element.name }}
-                        </li>
-                </draggable>pm
+                       <Task v-for="(element,index) in tasks" :task="element" :key="element.id"/>
+                </draggable>
             </div>
         </div>
         <div class="row mt-3" style="min-height: 40px">
@@ -53,10 +42,11 @@
 <script>
 import draggable from "vuedraggable";
 import header from "../../Group/GroupHeader/Header.vue";
+import Task from "./Task.vue";
 
 export default {
     name: "Tasks",
-    components: {draggable},
+    components: {Task, draggable},
     props: {
         tasks: {
             type: Array,
@@ -87,15 +77,6 @@ export default {
 </script>
 
 <style scoped>
-.pointEvent:hover {
-    transition: background-color 0.5s;
-    background-color: #6c757d;
-}
-
-.pointEvent{
-    -webkit-transition: background-color 0.5s;
-}
-
 .flip-list-move {
     transition: transform 0.5s;
 }
@@ -112,23 +93,6 @@ export default {
 .list-group {
 
 }
-.list-group-item:hover {
-    transition: opacity 0.5s;
-    opacity: 0.7;
-}
-
-
-.list-group-item {
-    cursor: pointer;
-    -webkit-transition: opacity 0.5s;
-    margin-bottom: 10px;
-    border-radius: 15px;
-}
-
-.list-group-item i {
-    cursor: pointer;
-}
-
 
 .tasksScroll{
     overflow: auto;

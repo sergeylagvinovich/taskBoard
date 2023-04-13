@@ -5,6 +5,10 @@ export default {
         goTo(state,value){
             if(router.app.$route.name!==value)
                 router.push({name:value});
+        },
+        goToWithParams(state,data){
+            if(router.app.$route.name!==data.name)
+                router.push({name:data.name,params:data.params});
         }
     }
 }
