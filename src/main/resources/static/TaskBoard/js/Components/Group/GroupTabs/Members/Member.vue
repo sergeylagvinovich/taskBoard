@@ -12,7 +12,7 @@
         </div>
         <div class="col-6 text-right mx-auto" style="color: #0069d9; font-size: 20px">
             <span
-                   class="pr-2 btn btn-info"
+                   class="pr-2 btn btn-outline-primary"
                    style="min-width: 150px"
                    @click="$root.$emit('bv::hide::popover');popoverRolesShow=true;"
                    :id="member.id+'-member-role'"
@@ -20,7 +20,7 @@
               {{ member.groupRole }}
             </span>
             <span
-                    class="pr-2 btn btn-info"
+                    class="pr-2 btn btn-outline-primary"
                     :id="member.id+'-member-boards'"
                     @click="$root.$emit('bv::hide::popover');popoverMemberBoardsShow=true;"
                     style="min-width: 150px"
