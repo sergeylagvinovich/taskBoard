@@ -22,6 +22,7 @@
 
 <script>
 import BoardSidebar from "./BoardSidebar.vue";
+import {mapMutations} from "vuex";
 
 export default {
     name: "BoardPage",

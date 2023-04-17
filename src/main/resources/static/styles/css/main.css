@@ -80,3 +80,36 @@
     background-color: white;
     top: 18px;
 }
+
+
+.btnMy{
+    align-items: center;
+    background-color: #091e420a;
+    border: none;
+    border-radius: 3px;
+    box-shadow: none;
+    box-sizing: border-box;
+    color: #172b4d;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    justify-content: center;
+    line-height: 20px;
+    padding: 6px 12px;
+    text-decoration: none;
+    transition-duration: 85ms;
+    transition-property: background-color,border-color,box-shadow;
+    transition-timing-function: ease;
+    white-space: normal;
+}
+
+.btnMy:hover{
+    background-color: #091e4214;
+    border: none;
+    box-shadow: none;
+    color: inherit;
+    text-decoration: none;
+}
