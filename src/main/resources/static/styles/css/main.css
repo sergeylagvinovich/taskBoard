@@ -80,7 +80,9 @@
     background-color: white;
     top: 18px;
 }
-
+.displayNone{
+    display: none;
+}
 
 .btnMy{
     align-items: center;
@@ -112,4 +114,22 @@
     box-shadow: none;
     color: inherit;
     text-decoration: none;
+}
+
+textarea{
+    -webkit-appearance: none;
+    background-color: #fafbfc;
+    border: none;
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 2px #dfe1e6;
+    box-sizing: border-box;
+    display: block;
+    line-height: 20px;
+    margin-bottom: 12px;
+    outline: none;
+    padding: 8px 12px;
+    transition-duration: 85ms;
+    transition-property: background-color,border-color,box-shadow;
+    transition-timing-function: ease;
+    width: 100%;
 }
