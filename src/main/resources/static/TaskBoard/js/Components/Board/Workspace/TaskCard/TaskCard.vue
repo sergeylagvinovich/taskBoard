@@ -16,10 +16,12 @@
                     <div class="col-1" style="font-size: 20px">
                         <b-icon-card-heading/>
                     </div>
-                    <div class="col-9 text-center">
+                    <div class="col-10 text-center" v-show="loading">
+                    </div>
+                    <div class="col-10 text-center" v-show="!loading">
                         <textarea ref="textarea" class="textAreaHeader" @keyup="checkLength" style="min-height: 60px; overflow-wrap: break-word; overflow: hidden;" v-model="text"></textarea>
                     </div>
-                    <div class="col-2">
+                    <div class="col-1 float-right">
                         <b-button-close @click="close"/>
                     </div>
                 </div>
@@ -36,15 +38,44 @@
                     <div class="col-1" style="font-size: 20px; font-weight: bold">
                         <b-icon-card-text/>
                     </div>
-                    <div class="col-9">
+                    <div class="col-10">
                         <div class="row">
                             <div class="col-12 text-left">
-                                Описание <span class="btnMy">Изменить</span>
+                                <label class="font-weight-bold">Описание</label>
+                                <span class="btn btn-outline-primary" @click="editNote=!editNote">{{editNote?'Отмена':'Изменить'}}</span>
+                                <span class="btn btn-outline-primary">Действия</span>
                             </div>
                             <div class="col-12 text-left">
-                                <vue-editor v-model="content"></vue-editor>
-                                <div v-html="content"></div>
+                                <vue-editor v-model="content" v-show="editNote"></vue-editor>
+                                <div class="ql-snow" v-show="!editNote">
+                                    <div class="ql-editor" v-html="content">
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-1" style="font-size: 20px; font-weight: bold">
+                        <b-icon-chat-right-text/>
+                    </div>
+                    <div class="col-9">
+                        <div class="row">
+                           тут создание сообщения
+                        </div>
+                    </div>
+                    <div class="col-2">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-1" style="font-size: 20px; font-weight: bold">
+
+                    </div>
+                    <div class="col-9">
+                        <div class="row">
+                            а тут отображение сообщений
                         </div>
                     </div>
                     <div class="col-2">
@@ -53,14 +84,9 @@
             </div>
         </b-skeleton-wrapper>
         <template #modal-footer="{ close }">
-            <b-button
-                variant="primary"
-                size="sm"
-                class="float-right"
-                @click="close"
-            >
-                Close
-            </b-button>
+            <span class="btn btn-outline-primary float-right" @click="close">
+                Закрыть
+            </span>
         </template>
     </b-modal>
 </template>
@@ -75,6 +101,7 @@ export default {
         return{
             text:"asdadasdasdas",
             show:true,
+            editNote:false,
             content:"",
             loading: false,
             loadingTime: 0,
@@ -140,8 +167,10 @@ export default {
 </script>
 
 <style scoped>
-
-
+@import "vue2-editor/dist/vue2-editor.css";
+@import "quill/dist/quill.bubble.css";
+@import "quill/dist/quill.core.css";
+@import "quill/dist/quill.snow.css";
 textarea.textAreaHeader{
     overflow: hidden;
     background: #0000;

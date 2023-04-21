@@ -1,15 +1,16 @@
 <template>
+    <!-- TODO:: Изменить id на тот который будет приходить для группы-->
     <div class="row">
         <div class="col-12 mb-3 pr-0">
             <div class="boardGroup row bg-primary align-items-center ">
                 <div class="col-6 mx-auto">
-                    <label class="font-weight-bold pointer" @click="goTo('GroupBoards')" style="color: white">{{ group.name }}</label>
+                    <label class="font-weight-bold pointer" @click="goTo({name:'GroupBoards',params:{id:1}})" style="color: white">{{ group.name }}</label>
                 </div>
                 <div class="col-6 text-right mx-auto" style="color: white; font-size: 20px">
                     <span
                         class="pointer pr-2"
                         :id="group.id+'-'+'group-board-window-dock'"
-                        @click="goTo('GroupBoards')"
+                        @click="goTo({name:'GroupBoards',params:{id:1}})"
                         v-on:mouseover="tooltip='group-board-window-dock'"
                         v-on:mouseleave="tooltip=null"
                     >
@@ -18,7 +19,7 @@
                     <span
                         class="pointer pr-2"
                         :id="group.id+'-'+'group-board-person'"
-                        @click="goTo('GroupUsers')"
+                        @click="goTo({name:'GroupUsers',params:{id:1}})"
                         v-on:mouseover="tooltip='group-board-person'"
                         v-on:mouseleave="tooltip=null"
                     >
@@ -27,7 +28,7 @@
                     <span
                         class="pointer pr-2"
                         :id="group.id+'-'+'group-board-wrench'"
-                        @click="goTo('GroupSettings')"
+                        @click="goTo({name:'GroupSettings',params:{id:1}})"
                         v-on:mouseover="tooltip='group-board-wrench'"
                         v-on:mouseleave="tooltip=null"
                     >
@@ -98,7 +99,7 @@ export default {
     },
     methods:{
         ...mapMutations({
-            'goTo':'routerModule/goTo',
+            'goTo':'routerModule/goToWithParams',
         })
     }
 

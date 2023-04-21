@@ -43,12 +43,12 @@ const routes = [
         component: About
     },
     {
-        path: baseUrl+'/group',
+        path: baseUrl+'/groups/:id',
         name: 'Group',
         component: GroupPage,
         children: [
             {
-                path: '',
+                path: 'boards',
                 name: "GroupBoards",
                 component: GroupBoards,
             },

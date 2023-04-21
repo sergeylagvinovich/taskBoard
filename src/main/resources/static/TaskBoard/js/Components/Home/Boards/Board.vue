@@ -1,16 +1,24 @@
 <template>
-    <div class="boardCard pointer">
+<!-- TODO:: Изменить id на тот который будет приходить для доски-->
+    <div class="boardCard pointer" @click="goTo({name:'BoardWorkspace',params:{boardId: 1}})">
         <label class="col-form-label">{{ board.name }}</label>
     </div>
 </template>
 
 <script>
+import {mapActions, mapMutations} from "vuex";
+
 export default {
     name: "Board",
     props:{
         board:{
             type:Object,
         }
+    },
+    methods:{
+        ...mapMutations({
+            'goTo':'routerModule/goToWithParams',
+        })
     }
 }
 </script>
