@@ -3,6 +3,7 @@
     <b-modal
         id="modal-TaskCard"
         size="xl"
+        ref="modal"
         scrollable
         title="Name task"
         no-close-on-esc
@@ -11,6 +12,7 @@
         v-model="show"
         @close="goTo({name:'BoardWorkspace',params:{boardId:2}})"
     >
+
         <!--    TODO:: изменить пропс title, на тот который придет в карточке-->
         <template #modal-header="{ close }" v-show="!loading">
             <task-header :title="text" @close="close"/>
@@ -21,24 +23,29 @@
                     <b-spinner variant="primary" label="Text Centered"></b-spinner>
                 </div>
             </template>
-            <div class="container-fluid">
-                <!--    TODO:: изменить пропс note, на тот который придет в карточке-->
-                <task-note :note="content"/>
-                <div class="row">
-                    <div class="col-1" style="font-size: 20px; font-weight: bold">
-                        <b-icon-chat-right-text/>
-                    </div>
-                    <div class="col-10">
-                        <div class="row">
 
+            <template #default v-on:scroll.prevent="onScroll('template')">
+                <div class="container-fluid"
+                     @scroll="onScroll('div')"
+                     style="background-color: inherit">
+                    <!--    TODO:: изменить пропс note, на тот который придет в карточке-->
+                    <task-note :note="content"/>
+                    <div class="row">
+                        <div class="col-1" style="font-size: 20px; font-weight: bold">
+                            <b-icon-chat-right-text/>
+                        </div>
+                        <div class="col-10">
+                            <div class="row">
+
+                            </div>
+                        </div>
+                        <div class="col-1">
                         </div>
                     </div>
-                    <div class="col-1">
-                    </div>
+                    <task-new-comment/>
+                    <task-comments :comments="comments" :loadingComments="loadingComments"/>
                 </div>
-                <task-new-comment/>
-                <task-comments/>
-            </div>
+            </template>
         </b-skeleton-wrapper>
         <template #modal-footer="{ close }">
             <span class="btn btn-outline-primary float-right" @click="close">
@@ -69,6 +76,19 @@ export default {
             loading: false,
             loadingTime: 0,
             maxLoadingTime: 1,
+            busy:false,
+            loadingComments:false,
+            comments:[
+                {
+                    name:"1",
+                },
+                {
+                    name:"2",
+                },
+                {
+                    name:"3",
+                },
+            ]
         }
     },
     watch: {
@@ -86,9 +106,11 @@ export default {
             if (newValue !== oldValue) {
                 if (newValue === this.maxLoadingTime) {
                     this.loading = false
+                    console.log(this.$refs.modal.$refs.body.onscroll = this.onScroll)
                 }
             }
-        }
+        },
+
     },
     created() {
         this.$_loadingTimeInterval = null
@@ -97,6 +119,16 @@ export default {
         this.startLoading()
     },
     methods: {
+        loadMore(target){
+            const div = target.offsetParent
+            const scrollTop = target.offsetParent.scrollTop
+            this.loadingComments = true;
+            setTimeout(() => {
+                this.comments.push(...[{name:'3'},{name:'3'},{name:'3'},])
+                div.scrollTop = scrollTop;
+                this.loadingComments = false;
+            }, 10000);
+        },
         ...mapMutations({
             'goTo':'routerModule/goToWithParams'
         }),
@@ -108,6 +140,12 @@ export default {
             this.loading = true
             this.loadingTime = 0
         },
+        onScroll ({target,target: { scrollTop, clientHeight, scrollHeight }}) {
+            if (scrollTop + clientHeight >= scrollHeight) {
+                this.loadMore(target);
+                console.log('loading')
+            }
+        }
     }
 }
 </script>

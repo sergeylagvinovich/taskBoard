@@ -7,12 +7,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="comment-form">
-                <textarea
-                        class="textAreaComment"
-                        v-model="comment"
-                        placeholder="Напишите комментарий"
-                        @input="autoResize"
-                ></textarea>
+                        <textarea
+                                class="textAreaComment"
+                                v-model="comment"
+                                placeholder="Напишите комментарий"
+                                @input="autoResize"
+                        ></textarea>
                         <div>
                             <button :class="['btn btn-primary', comment.length>0?'':'disabled']" @click="">Сохранить</button>
                             <button class="btn btn-outline-primary" @click="">Прикрепить ссылку</button>
