@@ -24,9 +24,8 @@
                 </div>
             </template>
 
-            <template #default v-on:scroll.prevent="onScroll('template')">
+            <template #default>
                 <div class="container-fluid"
-                     @scroll="onScroll('div')"
                      style="background-color: inherit">
                     <!--    TODO:: изменить пропс note, на тот который придет в карточке-->
                     <task-note :note="content"/>
