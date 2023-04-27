@@ -2,6 +2,7 @@ package com.taskBoard.Models.Boards;
 
 import com.taskBoard.Models.BaseModel;
 import com.taskBoard.Models.Groups.Group;
+import com.taskBoard.Models.Groups.GroupUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +26,10 @@ public class Board extends BaseModel {
 
     @ManyToOne
     protected Group group;
+
+
+    @OneToMany(mappedBy = "id.board")
+    private Set<BoardUser> users = new HashSet<>();
 
     @OneToMany(mappedBy = "board")
     protected Set<BoardColumn> columns = new HashSet<>();

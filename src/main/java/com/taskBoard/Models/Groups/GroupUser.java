@@ -1,23 +1,30 @@
-package com.taskBoard.Models;
+package com.taskBoard.Models.Groups;
 
+import com.taskBoard.Models.Groups.Composite.GroupUsersID;
+import com.taskBoard.Models.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.annotations.UuidGenerator;
 
 import java.sql.Timestamp;
-import java.util.UUID;
+
+@Entity
+@Table(name = "group_users")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@MappedSuperclass
-public class BaseModel {
+@NoArgsConstructor
+public class GroupUser {
 
-    @Id
-    @UuidGenerator(style = UuidGenerator.Style.AUTO)
-    protected UUID UUID;
+    @EmbeddedId
+    private GroupUsersID id = new GroupUsersID();
+
+    @Column
+    protected GroupRole role;
 
     @Column
     @CreationTimestamp
@@ -30,11 +37,4 @@ public class BaseModel {
     @ManyToOne
     @JoinColumn(name="updated_user_uuid", referencedColumnName="uuid")
     protected User updated_user;
-
-    @Override
-    public boolean equals(Object obj) {
-        BaseModel baseObj = (BaseModel) obj;
-        return baseObj.UUID.equals(this.UUID);
-    }
-
 }

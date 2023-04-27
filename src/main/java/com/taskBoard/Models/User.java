@@ -1,8 +1,7 @@
 package com.taskBoard.Models;
 
-import com.taskBoard.Models.Boards.Board;
-import com.taskBoard.Models.Boards.BoardUsers;
-import com.taskBoard.Models.Groups.GroupUsers;
+import com.taskBoard.Models.Boards.BoardUser;
+import com.taskBoard.Models.Groups.GroupUser;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,10 +29,10 @@ public class User extends BaseModel {
     @Column
     private String img;
 
-    @ManyToMany
-    private Set<GroupUsers> groups = new HashSet<>();
+    @OneToMany(mappedBy = "id.user")
+    private Set<GroupUser> groups = new HashSet<>();
 
-    @ManyToMany
-    private Set<BoardUsers> boards = new HashSet<>();
+    @OneToMany(mappedBy = "id.user")
+    private Set<BoardUser> boards = new HashSet<>();
 
 }
