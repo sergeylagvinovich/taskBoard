@@ -23,7 +23,7 @@
                         v-on:mouseover="tooltip='group-board-person'"
                         v-on:mouseleave="tooltip=null"
                     >
-                        <b-icon-person />(2)
+                        <b-icon-person />
                     </span>
                     <span
                         class="pointer pr-2"
@@ -32,7 +32,7 @@
                         v-on:mouseover="tooltip='group-board-wrench'"
                         v-on:mouseleave="tooltip=null"
                     >
-                        <b-icon-wrench/>
+                        <b-icon-tools/>
                     </span>
                     <span
                         class="pointer pr-2"
@@ -53,9 +53,6 @@
         </div>
         <b-collapse :id="group.id+'-boards-collapse'" class="col-12 ">
             <div class="row">
-                <div class="col-3 pr-0" v-for="(item,itemIndex) in group.boards" :key="itemIndex">
-                    <board :board="item" :key="itemIndex"></board>
-                </div>
                 <div class="col-3 pr-0" >
                     <div class="boardCardAdd pointer">
                         <div>
@@ -65,6 +62,9 @@
                             <b-icon-plus-circle style="color: black"></b-icon-plus-circle>
                         </div>
                     </div>
+                </div>
+                <div class="col-3 pr-0" v-for="(item,itemIndex) in group.boards" :key="itemIndex">
+                    <board :board="item" :key="itemIndex"></board>
                 </div>
             </div>
          </b-collapse>
