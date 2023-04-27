@@ -23,6 +23,14 @@ public class GroupUser {
     @EmbeddedId
     private GroupUsersID id = new GroupUsersID();
 
+    @ManyToOne
+    @MapsId("user")
+    private User user;
+
+    @ManyToOne
+    @MapsId("group")
+    private Group group;
+
     @Column
     protected GroupRole role;
 

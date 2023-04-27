@@ -19,6 +19,6 @@ public class Group extends BaseModel {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "id.group")
+    @OneToMany(mappedBy = "group")
     private Set<GroupUser> users = new HashSet<>();
 }

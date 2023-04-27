@@ -5,28 +5,25 @@ import com.taskBoard.Models.User;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.relational.core.mapping.Embedded;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.UUID;
 
 
 @Getter
 @Setter
-@Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
+@Embeddable
 public class GroupUsersID implements Serializable {
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "group_uuid")
     private Group group;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "user_uuid")
     private User user;
 
