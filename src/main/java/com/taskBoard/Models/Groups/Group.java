@@ -12,8 +12,8 @@ import java.util.Set;
 @Table(name = "groups")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Group extends BaseModel {
 
     @Column
@@ -21,4 +21,7 @@ public class Group extends BaseModel {
 
     @OneToMany(mappedBy = "group")
     private Set<GroupUser> users = new HashSet<>();
+
+    @OneToMany(mappedBy = "group")
+    private Set<Board> boards = new HashSet<>();
 }

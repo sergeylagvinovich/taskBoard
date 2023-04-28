@@ -11,7 +11,7 @@ import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
-
+import java.util.UUID;
 
 @Entity
 @Table(name = "boards")
@@ -22,17 +22,16 @@ import java.util.Set;
 public class Board extends BaseModel {
 
     @Column
-    protected String name;
+    private String name;
 
     @ManyToOne
-    protected Group group;
-
+    private Group group;
 
     @OneToMany(mappedBy = "id.board")
     private Set<BoardUser> users = new HashSet<>();
 
     @OneToMany(mappedBy = "board")
-    protected Set<BoardColumn> columns = new HashSet<>();
+    private Set<BoardColumn> columns = new HashSet<>();
 
 
 }

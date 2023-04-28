@@ -34,7 +34,7 @@
 import BoardGroup from "./BoardGroup.vue";
 import groups from "../Groups/Groups.vue";
 import Board from "./Board.vue";
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
     name: "Boards",
@@ -53,29 +53,7 @@ export default {
     data(){
         return{
             loading: false,
-            loadingTime: 0,
-            maxLoadingTime: 3,
-
-            expand:false,
-            boards:[
-                {
-                    name:"Тестовая группа 1",
-                    boards:[
-                        {
-                            name:'Доска 1'
-                        },
-                        {
-                            name:'Доска 2'
-                        },
-                        {
-                            name:'Доска 3'
-                        },
-                        {
-                            name:'Доска 4'
-                        }
-                    ]
-                },
-            ],
+            boards:[],
             historyBoards:[
                 {
                     name:'Доска 1'
@@ -90,101 +68,20 @@ export default {
                     name:'Доска 4'
                 }
             ],
-            testData:[
-                {
-                    id:1,
-                    name:"Тестовая группа 1",
-                    boards:[
-                        {
-                            name:'Доска 1'
-                        },
-                        {
-                            name:'Доска 2'
-                        },
-                        {
-                            name:'Доска 3'
-                        },
-                        {
-                            name:'Доска 4'
-                        }
-                    ]
-                },
-                {
-                    id:2,
-                    name:"Тестовая группа 2",
-                    boards:[
-                        {
-                            name:'Доска 1'
-                        },
-                        {
-                            name:'Доска 2'
-                        },
-                        {
-                            name:'Доска 3'
-                        },
-                        {
-                            name:'Доска 4'
-                        },
-                        {
-                            name:'Доска 5'
-                        },
-                        {
-                            name:'Доска 6'
-                        },
-                    ]
-                },
-                {
-                    id:3,
-                    name:"Тестовая группа 3",
-                    boards:[
-                        {
-                            name:'Доска 1'
-                        },
-                        {
-                            name:'Доска 2'
-                        },
-                    ]
-                }
-
-            ]
         }
-    },
-    watch: {
-        loading(newValue, oldValue) {
-            if (newValue !== oldValue) {
-                this.clearLoadingTimeInterval()
-
-                if (newValue) {
-                    this.$_loadingTimeInterval = setInterval(() => {
-                        this.loadingTime++
-                    }, 1000)
-                }
-            }
-        },
-        loadingTime(newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if (newValue === this.maxLoadingTime) {
-                    this.boards = this.testData;
-                    this.loading = false
-                }
-            }
-        }
-    },
-    created() {
-        this.$_loadingTimeInterval = null
     },
     mounted() {
-        this.startLoading()
+        this.init();
     },
     methods: {
-        clearLoadingTimeInterval() {
-            clearInterval(this.$_loadingTimeInterval)
-            this.$_loadingTimeInterval = null
+        async init(){
+            this.loading = true;
+            this.boards = await this.fetchBoards();
+            this.loading = false;
         },
-        startLoading() {
-            this.loading = true
-            this.loadingTime = 0
-        }
+        ...mapActions({
+            'fetchBoards':'GroupsModule/fetchGroups'
+        }),
     }
 }
 </script>

@@ -8,11 +8,11 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.sql.Timestamp;
 import java.util.UUID;
+@MappedSuperclass
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@MappedSuperclass
 public class BaseModel {
 
     @Id

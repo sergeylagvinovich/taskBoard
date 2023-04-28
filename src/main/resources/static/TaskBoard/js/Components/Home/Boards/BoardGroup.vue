@@ -4,7 +4,7 @@
         <div class="col-12 mb-3 pr-0">
             <div class="boardGroup row bg-primary align-items-center ">
                 <div class="col-6 mx-auto">
-                    <label class="font-weight-bold pointer" @click="goTo({name:'GroupBoards',params:{id:1}})" style="color: white">{{ group.name }}</label>
+                    <label class="font-weight-bold pointer" @click="goTo({name:'GroupBoards',params:{id:group.id}})" style="color: white">{{ group.name }}</label>
                 </div>
                 <div class="col-6 text-right mx-auto" style="color: white; font-size: 20px">
                     <span
