@@ -12,8 +12,12 @@ export default {
 
     },
     actions:{
-        fetchGroups(){
-            return instance.get("/groups/v1/").then((resp)=>{
+        fetchGroups(ctx,data){
+            console.log(data)
+            return instance.get("/groups/v1/",{params:{
+                    page:data.page,
+                    size:data.size
+                }}).then((resp)=>{
                 return resp.data.data;
             }).catch((err)=>{
                 return [];

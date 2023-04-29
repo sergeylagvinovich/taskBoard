@@ -18,7 +18,6 @@ export default {
     },
     computed: {
         activeTab(){
-            console.log(this.$route.name)
             return this.$route.name;
         },
         ...mapGetters({

@@ -31,6 +31,7 @@ export default {
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 10px;
     height: 125px;
+    max-width: 225px;
     max-height: 125px;
     width: 100%;
     background-color: white;

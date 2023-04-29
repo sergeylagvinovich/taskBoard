@@ -236,7 +236,7 @@ export default {
             this.loadingTime = 0
         },
         log(evt){
-            console.log(evt);
+            // console.log(evt);
         }
     }
 }

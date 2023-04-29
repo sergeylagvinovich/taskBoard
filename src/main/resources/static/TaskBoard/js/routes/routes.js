@@ -51,6 +51,7 @@ const routes = [
                 path: 'boards',
                 name: "GroupBoards",
                 component: GroupBoards,
+                alias: ['/:id', ''],
             },
             {
                 path: 'options',

@@ -1,6 +1,6 @@
 package com.taskBoard.Configurations;
 
-import com.taskBoard.Modules.TaskBoard.src.Mappings.CustomMapping.impl.GroupMapperCustomImpl;
+import com.taskBoard.Modules.Groups.Serices.impl.GroupServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 public class BeanServicesConfig {
 
     @Bean
-    public GroupMapperCustomImpl getGroupMapperCustomService() {
-        return new GroupMapperCustomImpl ();
+    public GroupServiceImpl getGroupMapperCustomService() {
+        return new GroupServiceImpl();
     }
 
 }

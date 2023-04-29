@@ -104,8 +104,8 @@ export default {
         loadingTime(newValue, oldValue) {
             if (newValue !== oldValue) {
                 if (newValue === this.maxLoadingTime) {
-                    this.loading = false
-                    console.log(this.$refs.modal.$refs.body.onscroll = this.onScroll)
+                    this.loading = false;
+                    this.$refs.modal.$refs.body.onscroll = this.onScroll;
                 }
             }
         },
@@ -142,7 +142,6 @@ export default {
         onScroll ({target,target: { scrollTop, clientHeight, scrollHeight }}) {
             if (scrollTop + clientHeight >= scrollHeight) {
                 this.loadMore(target);
-                console.log('loading')
             }
         }
     }

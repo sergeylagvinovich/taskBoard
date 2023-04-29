@@ -1,15 +1,14 @@
-package com.taskBoard.Modules.TaskBoard.src.Mappings.CustomMapping.impl;
+package com.taskBoard.Modules.TaskBoard.src.Mappings.GroupsMapping.impl;
 
 import com.taskBoard.Modules.TaskBoard.src.Dto.Boards.BoardDto;
 import com.taskBoard.Modules.TaskBoard.src.Dto.Groups.GroupDto;
-import com.taskBoard.Modules.TaskBoard.src.Mappings.CustomMapping.GroupMapperCustom;
+import com.taskBoard.Modules.TaskBoard.src.Mappings.GroupsMapping.GroupPageableMapper;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
-public class GroupMapperCustomImpl implements GroupMapperCustom {
+public class GroupPageableMapperImpl implements GroupPageableMapper {
     @Override
     public GroupDto modelToDto(Object[] model) {
         GroupDto temp = new GroupDto(model[0].toString(),model[1].toString());
@@ -21,12 +20,10 @@ public class GroupMapperCustomImpl implements GroupMapperCustom {
     }
 
     @Override
-    public Set<GroupDto> modelsToDtos(Set<Object[]> models) {
-        Set<GroupDto> result = new HashSet<>();
+    public List<GroupDto> modelsToDtos(List<Object[]> models) {
+        List<GroupDto> result = new ArrayList<>();
         for (Object[] item: models) {
-            GroupDto temp = this.modelToDto(item);
             result.add(this.modelToDto(item));
-            temp = null;
         }
         return result;
     }

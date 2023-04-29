@@ -6,7 +6,7 @@
             </div>
             <div class="col-10">
                 <div class="row">
-                    <div class="col-12 scroll">
+                    <div class="col-12">
                         <transition name="fade" mode="out-in">
                             <router-view/>
                         </transition>
