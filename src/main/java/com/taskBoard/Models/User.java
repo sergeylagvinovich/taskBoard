@@ -29,10 +29,10 @@ public class User extends BaseModel {
     @Column
     private String img;
 
-    @OneToMany(mappedBy = "id.user")
+    @OneToMany(mappedBy = "id.user", fetch = FetchType.LAZY)
     private Set<GroupUser> groups = new HashSet<>();
 
-    @OneToMany(mappedBy = "id.user")
+    @OneToMany(mappedBy = "id.user", fetch = FetchType.LAZY)
     private Set<BoardUser> boards = new HashSet<>();
 
 }

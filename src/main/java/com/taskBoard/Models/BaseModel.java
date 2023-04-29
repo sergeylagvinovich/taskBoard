@@ -27,7 +27,7 @@ public class BaseModel {
     @UpdateTimestamp
     protected Timestamp updatedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="updated_user_uuid", referencedColumnName="uuid")
     protected User updated_user;
 

@@ -27,10 +27,10 @@ public class Board extends BaseModel {
     @ManyToOne
     private Group group;
 
-    @OneToMany(mappedBy = "id.board")
+    @OneToMany(mappedBy = "id.board", fetch = FetchType.LAZY)
     private Set<BoardUser> users = new HashSet<>();
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
     private Set<BoardColumn> columns = new HashSet<>();
 
 

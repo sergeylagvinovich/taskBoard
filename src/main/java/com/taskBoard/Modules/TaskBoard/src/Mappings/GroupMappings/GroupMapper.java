@@ -13,12 +13,10 @@ import java.util.Set;
 @Mapper(uses = {BoardMapper.class})
 public interface GroupMapper {
 
-    @Mapping(target = "id", source = "group.UUID")
-    @Mapping(target = "boards", source = "group.boards")
-    @Mapping(target = "name", source = "group.name")
-    GroupDto modelToDto (GroupUser group);
-    Set<GroupDto> modelsToDtos (Set<GroupUser> groups);
-
-
+//    @Mapping(target = "id", source = "group.UUID")
+//    @Mapping(target = "boards", source = "group.boards")
+//    @Mapping(target = "name", source = "group.name")
+//    GroupDto modelToDto (GroupUser group);
+//    Set<GroupDto> modelsToDtos (Set<GroupUser> groups);
 
 }

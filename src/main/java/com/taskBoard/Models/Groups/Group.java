@@ -19,9 +19,9 @@ public class Group extends BaseModel {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private Set<GroupUser> users = new HashSet<>();
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private Set<Board> boards = new HashSet<>();
 }

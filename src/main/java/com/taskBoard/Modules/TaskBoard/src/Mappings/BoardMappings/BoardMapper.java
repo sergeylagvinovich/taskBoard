@@ -10,9 +10,9 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
 
-    @Mapping(target = "id", source = "UUID")
-    BoardDto modelToDto (Board board);
-    List<BoardDto> modelsToDtos (List<Board> boards);
+//    @Mapping(target = "id", source = "UUID")
+//    BoardDto modelToDto (Board board);
+//    List<BoardDto> modelsToDtos (List<Board> boards);
 
 //    @Mapping(target = "uuid", source = "id")
 //    Board dtoToModel (BoardDto boardDto);
