@@ -15,7 +15,13 @@ import Header from "./Header.vue";
 
 export default {
     name: "GroupHeader",
-    components: {Header, GroupTabs}
+    props:{
+        group:{
+            type:Object,
+            default:null
+        }
+    },
+    components: {Header, GroupTabs},
 }
 </script>
 

@@ -28,8 +28,8 @@
             <div class="row">
                 <div class="col-12 mb-3">
                     <div class="row">
-                        <div class="col-3 pr-0" >
-                            <div class="boardCardAdd pointer">
+                        <div class="col-3 pr-0" v-if="canEdit">
+                            <div class="boardCardAdd pointer" style="height: 125px; max-width: 225px; max-height: 125px; width: 100%;">
                                 <div>
                                     <label class="col-form-label">{{lang['addBoard']}}</label>
                                 </div>
@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3 pr-0" v-for="(item,itemIndex) in boards1" :key="itemIndex">
+                        <div class="col-3 pr-0" v-for="(item,itemIndex) in boards" :key="itemIndex">
                             <board :board="item" :key="itemIndex"></board>
                         </div>
                     </div>
@@ -51,38 +51,19 @@
 <script>
 import BoardGroup from "../../../Home/Boards/BoardGroup.vue";
 import Board from "../../../Home/Boards/Board.vue";
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import groups from "../../../Home/Groups/Groups.vue";
+import groupMixin from "../../../../../../js/modules/Mixins/groupMixin";
 
 export default {
     name: "GroupBoards",
     components: {Board, BoardGroup},
+    mixins:[groupMixin],
     data(){
         return{
             loading: false,
-            loadingTime: 0,
-            maxLoadingTime: 3,
-
             expand:false,
-            boards:[
-                {
-                    name:"Тестовая группа 1",
-                    boards:[
-                        {
-                            name:'Доска 1'
-                        },
-                        {
-                            name:'Доска 2'
-                        },
-                        {
-                            name:'Доска 3'
-                        },
-                        {
-                            name:'Доска 4'
-                        }
-                    ]
-                },
-            ],
+            boards:[],
             historyBoards:[
                 {
                     name:'Доска 1'
@@ -97,109 +78,11 @@ export default {
                     name:'Доска 4'
                 },
             ],
-            boards1:[
-                {
-                    name:'Доска 1'
-                },
-                {
-                    name:'Доска 2'
-                },
-                {
-                    name:'Доска 3'
-                },
-                {
-                    name:'Доска 4'
-                },
-                {
-                    name:'Доска 4'
-                },
-                {
-                    name:'Доска 4'
-                },
-                {
-                    name:'Доска 4'
-                },
-                {
-                    name:'Доска 4'
-                },
-                {
-                    name:'Доска 4'
-                },
-                {
-                    name:'Доска 4'
-                },
-                {
-                    name:'Доска 4'
-                },
-                {
-                    name:'Доска 4'
-                },
-                {
-                    name:'Доска 4'
-                },
-            ],
-            testData:[
-                {
-                    id:1,
-                    name:"Тестовая группа 1",
-                    boards:[
-                        {
-                            name:'Доска 1'
-                        },
-                        {
-                            name:'Доска 2'
-                        },
-                        {
-                            name:'Доска 3'
-                        },
-                        {
-                            name:'Доска 4'
-                        }
-                    ]
-                },
-                {
-                    id:2,
-                    name:"Тестовая группа 2",
-                    boards:[
-                        {
-                            name:'Доска 1'
-                        },
-                        {
-                            name:'Доска 2'
-                        },
-                        {
-                            name:'Доска 3'
-                        },
-                        {
-                            name:'Доска 4'
-                        },
-                        {
-                            name:'Доска 5'
-                        },
-                        {
-                            name:'Доска 6'
-                        },
-                    ]
-                },
-                {
-                    id:3,
-                    name:"Тестовая группа 3",
-                    boards:[
-                        {
-                            name:'Доска 1'
-                        },
-                        {
-                            name:'Доска 2'
-                        },
-                    ]
-                }
-
-            ]
         }
     },
     computed: {
         ...mapGetters({
-            'getLang':'languageModule/getLang'
+            'getLang':'languageModule/getLang',
         }),
         lang(){
             return this.getLang;
@@ -209,40 +92,18 @@ export default {
         }
     },
     watch: {
-        loading(newValue, oldValue) {
-            if (newValue !== oldValue) {
-                this.clearLoadingTimeInterval()
-
-                if (newValue) {
-                    this.$_loadingTimeInterval = setInterval(() => {
-                        this.loadingTime++
-                    }, 1000)
-                }
-            }
-        },
-        loadingTime(newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if (newValue === this.maxLoadingTime) {
-                    this.boards = this.testData;
-                    this.loading = false
-                }
-            }
-        }
-    },
-    created() {
-        this.$_loadingTimeInterval = null
     },
     mounted() {
-        this.startLoading()
+        this.init()
     },
     methods: {
-        clearLoadingTimeInterval() {
-            clearInterval(this.$_loadingTimeInterval)
-            this.$_loadingTimeInterval = null
-        },
-        startLoading() {
-            this.loading = true
-            this.loadingTime = 0
+        ...mapActions({
+            "fetchBoards":"BoardsModule/fetchBoardsByGroupUUID",
+        }),
+        async init() {
+            this.loading = true;
+            this.boards = await this.fetchBoards(this.$route.params.id);
+            this.loading = false;
         }
     }
 }

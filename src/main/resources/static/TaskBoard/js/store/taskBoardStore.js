@@ -6,14 +6,18 @@ import languageModule from "../../../js/modules/LanguageModule";
 import routerModule from "./modules/RouterModule";
 import ToastModule from "./modules/ToastModule";
 import GroupsModule from "./modules/GroupsModule";
+import ResponseHandling from "../../../js/modules/ResponseHandling";
+import BoardsModule from "./modules/BoardsModule";
 const store = new Vuex.Store({
     modules:{
         languageModule,
         routerModule,
+        ResponseHandling,
         testModule,
         ToastModule,
 
-        GroupsModule
+        GroupsModule,
+        BoardsModule
     }
 })
 export default store;

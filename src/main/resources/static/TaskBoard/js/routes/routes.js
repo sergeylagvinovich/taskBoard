@@ -95,7 +95,7 @@ const routes = [
         ],
     },
     {
-        path: '/:catchAll(.*)',
+        path: '/:pathMatch(.*)*',
         name: 'NotFound',
         component: PageNotFound,
     }

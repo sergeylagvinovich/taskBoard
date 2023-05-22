@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class BoardDto {
 
-    String id;
-    String name;
+    String id = null;
+    String name = null;
 
 }

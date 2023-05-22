@@ -27,7 +27,8 @@ public class GroupController {
 
     @GetMapping("/{uuid_group}/boards")
     public ResponseEntity<ResponseAPIDto> getGroupBoards(@PathVariable(name = "uuid_group") UUID groupUUID){
-        return null;
+        ResponseAPIDto response = ResponseAPIDto.builder().data(groupService.getGroupBoards(groupUUID)).status(200).build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{uuid_group}/users")

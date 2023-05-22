@@ -10,11 +10,10 @@
 </template>
 
 <script>
-import MemberList from "./Group/GroupTabs/Members/MemberList.vue";
 
 export default {
     name: "PageNotFound",
-    components: {MemberList}
+    components: {}
 }
 </script>
 

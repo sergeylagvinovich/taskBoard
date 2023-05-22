@@ -1,6 +1,5 @@
 <template>
-<!-- TODO:: Изменить id на тот который будет приходить для доски-->
-    <div class="boardCard pointer" @click="goTo({name:'BoardWorkspace',params:{boardId: 1}})">
+    <div class="boardCard pointer" @click="goTo({name:'BoardWorkspace',params:{boardId: board.id}})">
         <label class="col-form-label">{{ board.name }}</label>
     </div>
 </template>

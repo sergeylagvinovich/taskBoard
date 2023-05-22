@@ -1,9 +1,11 @@
 package com.taskBoard.Modules.Group.Services.impl;
 
+import com.taskBoard.Dao.BoardDoa;
 import com.taskBoard.Dao.GroupDao;
 import com.taskBoard.ExceptionHandler.Exceptions.NotFoundException;
 import com.taskBoard.Modules.Group.Dto.BoardDto;
 import com.taskBoard.Modules.Group.Dto.GroupDto;
+import com.taskBoard.Modules.Group.Mappers.BoardMapper;
 import com.taskBoard.Modules.Group.Mappers.GroupMapper;
 import com.taskBoard.Modules.Group.Services.GroupService;
 import com.taskBoard.ExceptionHandler.ResponseMessageException;
@@ -18,8 +20,13 @@ public class GroupServiceImpl implements GroupService {
     @Autowired
     private GroupDao groupDao;
 
+    @Autowired
+    private BoardDoa boardDoa;
+
     private final GroupMapper groupMapper
             = Mappers.getMapper(GroupMapper.class);
+    private final BoardMapper boardMapper
+            = Mappers.getMapper(BoardMapper.class);
     @Override
     public GroupDto getGroup(UUID group_uuid) {
         return  groupMapper.modelToDto(groupDao.findById(group_uuid).orElseThrow(()->new NotFoundException(ResponseMessageException.GROUP_NOT_FOUND.getCode())));
@@ -27,7 +34,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public List<BoardDto> getGroupBoards(UUID group_uuid) {
-        return null;
+        return boardMapper.modelsToDtos(boardDoa.findAllByGroupUUID(group_uuid));
     }
 
     @Override

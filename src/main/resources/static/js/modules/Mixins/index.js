@@ -1,3 +1,5 @@
+import {mapActions, mapGetters} from "vuex";
+
 export default {
     methods: {
         dispatch(componentName, eventName, ...rest) {

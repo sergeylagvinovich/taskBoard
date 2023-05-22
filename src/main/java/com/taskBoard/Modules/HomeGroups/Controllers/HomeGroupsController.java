@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "api/home/groups/v1/",
+@RequestMapping(value = "api/v1/home/groups/",
         headers="Accept=*/*",
         produces = MediaType.APPLICATION_JSON_VALUE)
 public class HomeGroupsController {

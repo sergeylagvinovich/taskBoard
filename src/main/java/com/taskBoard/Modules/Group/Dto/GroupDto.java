@@ -15,5 +15,6 @@ public class GroupDto {
     String name = null;
     String note = null;
     String url = null;
+    String role = null;
 
 }
