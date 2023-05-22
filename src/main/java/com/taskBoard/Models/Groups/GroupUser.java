@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.sql.Timestamp;
 
@@ -35,7 +36,10 @@ public class GroupUser {
     protected GroupRole role;
 
     @Column
-    @CreationTimestamp
+    @Enumerated(EnumType.STRING)
+    protected GroupUserStatus status;
+
+    @Column
     protected Timestamp createdAt;
 
     @Column

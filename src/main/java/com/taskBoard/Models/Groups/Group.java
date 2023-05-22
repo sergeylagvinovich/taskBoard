@@ -17,11 +17,15 @@ import java.util.Set;
 public class Group extends BaseModel {
 
     @Column
-    private String name;
+    protected String fullName;
+
+    @Column
+    protected String shortName;
 
     @Column
     private String note;
 
+    @Column
     private String url;
 
     @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)

@@ -12,7 +12,8 @@ import lombok.Setter;
 public class GroupDto {
 
     String id = null;
-    String name = null;
+    String shortName = null;
+    String fullName = null;
     String note = null;
     String url = null;
     String role = null;
