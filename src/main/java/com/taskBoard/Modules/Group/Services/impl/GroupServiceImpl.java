@@ -1,10 +1,12 @@
 package com.taskBoard.Modules.Group.Services.impl;
 
 import com.taskBoard.Dao.GroupDao;
+import com.taskBoard.ExceptionHandler.Exceptions.NotFoundException;
 import com.taskBoard.Modules.Group.Dto.BoardDto;
 import com.taskBoard.Modules.Group.Dto.GroupDto;
 import com.taskBoard.Modules.Group.Mappers.GroupMapper;
 import com.taskBoard.Modules.Group.Services.GroupService;
+import com.taskBoard.ExceptionHandler.ResponseMessageException;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,9 +22,7 @@ public class GroupServiceImpl implements GroupService {
             = Mappers.getMapper(GroupMapper.class);
     @Override
     public GroupDto getGroup(UUID group_uuid) {
-        groupMapper.modelToDto(groupDao.findById(group_uuid).get());
-
-        return null;
+        return  groupMapper.modelToDto(groupDao.findById(group_uuid).orElseThrow(()->new NotFoundException(ResponseMessageException.GROUP_NOT_FOUND.getCode())));
     }
 
     @Override

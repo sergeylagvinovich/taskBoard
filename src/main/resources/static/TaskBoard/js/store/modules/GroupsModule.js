@@ -14,7 +14,7 @@ export default {
     actions:{
         fetchGroups({commit,dispatch},data){
             console.log(data)
-            return instance.get("/home/groups/v1/",{params:{
+            return instance.get("/v1/home/groups/",{params:{
                     page:data.page,
                     size:data.size
                 }}).then((resp)=>{
