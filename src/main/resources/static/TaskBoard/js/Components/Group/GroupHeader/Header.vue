@@ -1,7 +1,7 @@
 <template>
     <div class="row mb-3" style="min-height: 150px">
         <div class="col-6" v-show="!edit">
-            <p class="mb-0"><label class="font-weight-bold">{{group?.name}}</label> <b-icon-pencil v-if="canEdit" class="pointer" @click="()=>{editData = group; edit= true;}"/></p>
+            <p class="mb-0"><label class="font-weight-bold">{{group?.shortName}}</label> <b-icon-pencil v-if="canEdit" class="pointer" @click="()=>{editData = group; edit= true;}"/></p>
             <p class="mb-0" style="font-size: 14px; color: rgb(94, 108, 132)"><label class="font-weight-bold">URL {{group?.url}}</label></p>
             <p class="mb-0" style="font-size: 14px; color: rgb(94, 108, 132)"><label class="font-weight-bold">{{group?.note}}</label></p>
         </div>
@@ -16,7 +16,7 @@
                     <b-form-input
                         id="input-1"
                         type="text"
-                        v-model="editData.name"
+                        v-model="editData.fullName"
                         placeholder="Введите название"
                         required
                     ></b-form-input>
@@ -25,7 +25,7 @@
                 <b-form-group id="input-group-2" label="Краткое название" label-for="input-2">
                     <b-form-input
                         id="input-2"
-                        v-model="editData.name"
+                        v-model="editData.shortName"
                         placeholder="Введите краткое название"
                         required
                     ></b-form-input>
@@ -67,7 +67,8 @@ export default {
         return{
             edit:false,
             editData: {
-                name:"",
+                shortName:"",
+                fullName:"",
                 note:"",
                 url:"",
                 id:null,

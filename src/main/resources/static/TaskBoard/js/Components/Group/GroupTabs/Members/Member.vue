@@ -1,10 +1,10 @@
 <template>
     <div class="member row bg-transparent mb-3 align-items-center mt-2 mb-2">
         <div class="col-3 mx-auto">
-            <label class="font-weight-bold mb-0" style="color: black">{{ member.name }}</label>
+            <label class="font-weight-bold mb-0" style="color: black">{{ member.firstName }}</label>
             <br>
             <label class="font-weight-bold mb-0" style="font-size: 14px;color: rgb(94, 108, 132)">{{
-                member.username
+                member.email
                 }}</label>
         </div>
         <div class="col-3 mx-auto text-center">
@@ -17,11 +17,11 @@
                    @click="$root.$emit('bv::hide::popover');popoverRolesShow=true;"
                    :id="member.id+'-member-role'"
            >
-              {{ member.groupRole }}
+              {{ member.role }}
             </span>
             <span
                     class="pr-2 btn btn-outline-primary"
-                    :id="member.id+'-member-boards'"
+                    :id="member.userUUID+'-member-boards'"
                     @click="$root.$emit('bv::hide::popover');popoverMemberBoardsShow=true;"
                     style="min-width: 150px"
             >
@@ -36,9 +36,9 @@
                     placement="bottom"
                     triggers="focus"
                     :show.sync="popoverRolesShow"
-                    :ref="member.id+'-member-role'"
+                    :ref="member.userUUID+'-member-role'"
                     custom-class="popoverForm"
-                    :target="member.id+'-member-role'"
+                    :target="member.userUUID+'-member-role'"
             >
                 <template #title>
                     Права рабочего пространства
@@ -63,9 +63,9 @@
             <b-popover placement="bottom"
                        triggers="focus"
                        :show.sync="popoverMemberBoardsShow"
-                       :ref="member.id+'-member-boards'"
+                       :ref="member.userUUID+'-member-boards'"
                        custom-class="popoverForm"
-                       :target="member.id+'-member-boards'"
+                       :target="member.userUUID+'-member-boards'"
             >
                 <template #title>
                     Доски рабочего пространства
@@ -101,7 +101,7 @@ export default {
     },
     computed: {
         variantStatus() {
-            if (this.member.status === 'Blocked' || this.member.status === 'Leave') {
+            if (this.member.status === 'BLOCKED' || this.member.status === 'LEAVE') {
                 return 'danger';
             }
             return 'success';

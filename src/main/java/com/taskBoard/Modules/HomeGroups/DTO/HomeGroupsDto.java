@@ -18,13 +18,13 @@ import java.util.UUID;
 public class HomeGroupsDto {
 
     String id;
-    String shortName;
+    String name;
     List<HomeBoardsDto> boards = new ArrayList<>();
     GroupRole role;
     public HomeGroupsDto(Object[] args) throws JsonProcessingException {
 
         this.id = args[0].toString();
-        this.shortName = args[1].toString();
+        this.name = args[1].toString();
         this.role = GroupRole.values()[(Short) args[2]];
         ArrayList boardsData = (ArrayList) args[3];
         for (int i = 0; i < boardsData.size(); i++) {

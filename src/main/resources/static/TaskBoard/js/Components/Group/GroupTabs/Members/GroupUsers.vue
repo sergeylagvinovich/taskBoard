@@ -7,14 +7,14 @@
                 </div>
             </template>
             <div class="row">
-                <MemberList :members="memberList"/>
+                <MemberList :members="members"/>
             </div>
         </b-skeleton-wrapper>
     </div>
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import Board from "../../../Home/Boards/Board.vue";
 import MemberList from "./MemberList.vue";
 
@@ -24,9 +24,6 @@ export default {
     data(){
         return {
             loading: false,
-            loadingTime: 0,
-            maxLoadingTime: 3,
-            memberList:null,
             members: [
                 {
                     id: 1,
@@ -73,42 +70,18 @@ export default {
             return this.getLang;
         },
     },
-    watch: {
-        loading(newValue, oldValue) {
-            if (newValue !== oldValue) {
-                this.clearLoadingTimeInterval()
-
-                if (newValue) {
-                    this.$_loadingTimeInterval = setInterval(() => {
-                        this.loadingTime++
-                    }, 1000)
-                }
-            }
-        },
-        loadingTime(newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if (newValue === this.maxLoadingTime) {
-                    this.loading = false
-                    this.memberList = this.members
-                }
-            }
-        }
-    },
-    created() {
-        this.$_loadingTimeInterval = null
-    },
     mounted() {
-        this.startLoading()
+        this.init()
     },
     methods: {
-        clearLoadingTimeInterval() {
-            clearInterval(this.$_loadingTimeInterval)
-            this.$_loadingTimeInterval = null
+        ...mapActions({
+          'fetchUsers':'GroupsModule/fetchGroupUsersByUUID'
+        }),
+        async init() {
+           this.loading = true;
+           this.members = await this.fetchUsers(this.$route.params.id);
+           this.loading = false;
         },
-        startLoading() {
-            this.loading = true
-            this.loadingTime = 0
-        }
     }
 }
 </script>

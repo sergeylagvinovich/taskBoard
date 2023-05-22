@@ -16,10 +16,10 @@ public interface GroupDao extends CrudRepository<Group, UUID> {
                     "v_boards as (\n" +
                     "select b.group_uuid as group_uuid, b.uuid as board_uuid, b.\"name\" from boards b \n" +
                     ")\n" +
-                    "select g.uuid, g.full_name, gu.\"role\", json_agg(vb.*) from group_users gu \n" +
+                    "select g.uuid, g.short_name, gu.\"role\", json_agg(vb.*) from group_users gu \n" +
                     "join \"groups\" g on g.uuid = gu.group_uuid \n" +
                     "join v_boards vb on vb.group_uuid = g.uuid\n" +
-                    "where gu.user_uuid = ?1\n"+
+                    "where gu.user_uuid = ?1 and gu.status = 'ACTIVE'\n"+
                     "group by g.uuid, gu.\"role\""
             ,
             countQuery =
@@ -31,7 +31,7 @@ public interface GroupDao extends CrudRepository<Group, UUID> {
                             "select count(1) from group_users gu \n" +
                             "join \"groups\" g on g.uuid = gu.group_uuid \n" +
                             "join v_boards vb on vb.group_uuid = g.uuid\n" +
-                            "where gu.user_uuid = ?1\n"+
+                            "where gu.user_uuid = ?1 and gu.status = 'ACTIVE'\n"+
                             "group by g.uuid, gu.\"role\"\n" +
                             ") a"
             ,

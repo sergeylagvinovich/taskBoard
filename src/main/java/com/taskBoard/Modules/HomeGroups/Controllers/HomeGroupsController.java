@@ -2,6 +2,7 @@ package com.taskBoard.Modules.HomeGroups.Controllers;
 
 import com.taskBoard.Configurations.Responces.ResponseAPIDto;
 import com.taskBoard.Dao.UserDao;
+import com.taskBoard.ExceptionHandler.Exceptions.NotFoundException;
 import com.taskBoard.Models.User;
 import com.taskBoard.Modules.HomeGroups.Serices.HomeGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,8 @@ public class HomeGroupsController {
     private HomeGroupService homeGroupService;
     @GetMapping
     public ResponseEntity<ResponseAPIDto> getAllGroupsByUser(@RequestParam Integer page, @RequestParam Integer size){
-        User user = userDao.findById(UUID.fromString("a618182e-e4f4-11ed-b5ea-0242ac120001")).get();
+        User user = userDao.findById(UUID.fromString("4e413063-69ed-480c-a9b1-2f30d9d07276"))
+                .orElseThrow(()->new NotFoundException("Не найден пользователь"));
         if(page == null){
             page = 1;
         }
