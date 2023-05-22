@@ -19,6 +19,11 @@ public class Group extends BaseModel {
     @Column
     private String name;
 
+    @Column
+    private String note;
+
+    private String url;
+
     @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private Set<GroupUser> users = new HashSet<>();
 

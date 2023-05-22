@@ -113,16 +113,16 @@ export default {
                 return;
             this.currentPage++;
             this.infiniteLoading = true;
-            let dataGroups = await this.fetchGroups({page:this.currentPage, size:100});
+            let dataGroups = await this.fetchGroups({page:this.currentPage, size:10});
             this.groups = this.groups.concat(dataGroups.groups);
-            this.totalPages = dataGroups.totalPages;
+            this.totalPages = dataGroups.page.total;
             this.infiniteLoading = false;
         },
         async init(){
             this.loading = true;
-            let dataGroups = await this.fetchGroups({page:0, size:100});
+            let dataGroups = await this.fetchGroups({page:0, size:10});
             this.groups = dataGroups.groups;
-            this.totalPages = dataGroups.totalPages;
+            this.totalPages = dataGroups.page.total;
             this.loading = false;
         },
         ...mapActions({

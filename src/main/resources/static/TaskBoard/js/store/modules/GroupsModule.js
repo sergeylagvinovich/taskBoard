@@ -12,15 +12,15 @@ export default {
 
     },
     actions:{
-        fetchGroups(ctx,data){
+        fetchGroups({commit,dispatch},data){
             console.log(data)
-            return instance.get("/groups/v1/",{params:{
+            return instance.get("/home/groups/v1/",{params:{
                     page:data.page,
                     size:data.size
                 }}).then((resp)=>{
                 return resp.data.data;
             }).catch((err)=>{
-                return [];
+                dispatch("ResponseHandling/showError",err,{ root: true });
             });
         },
     }

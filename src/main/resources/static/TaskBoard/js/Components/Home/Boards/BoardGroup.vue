@@ -1,5 +1,4 @@
 <template>
-    <!-- TODO:: Изменить id на тот который будет приходить для группы-->
     <div class="row">
         <div class="col-12 mb-3">
             <div class="boardGroup row bg-primary align-items-center ">
