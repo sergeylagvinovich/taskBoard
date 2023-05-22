@@ -14,8 +14,8 @@
             <span
                    class="pr-2 btn btn-outline-primary"
                    style="min-width: 150px"
-                   @click="$root.$emit('bv::hide::popover');popoverRolesShow=true;"
-                   :id="member.id+'-member-role'"
+                   @click="()=>{if(canEdit){$root.$emit('bv::hide::popover');popoverRolesShow=true;}}"
+                   :id="member.userUUID+'-member-role'"
            >
               {{ member.role }}
             </span>
@@ -46,15 +46,16 @@
                 <div class="container">
                     <div class="row align-items-center mb-2">
                         <div class="col-12 mx-auto text-center">
-                            <select class="form-control">
-                                <option value="Admin">Администратор</option>
-                                <option value="Admin">Участник</option>
+                            <select class="form-control" v-model="member.role">
+                                <option value="ADMIN">Администратор</option>
+                                <option value="PARTICIPANT">Участник</option>
+                                <option value="GUEST">Гость</option>
                             </select>
                         </div>
                     </div>
                     <div class="row align-items-center">
                         <div class="col-12 mx-auto text-center">
-                            <button class="btn btn-success">Сохранить</button>
+                            <button class="btn btn-primary">Сохранить</button>
                             <button class="btn btn-outline-danger" @click="popoverRolesShow=!popoverRolesShow">Закрыть</button>
                         </div>
                     </div>
@@ -86,8 +87,11 @@
 </template>
 
 <script>
+import groupMixin from "../../../../../../js/modules/Mixins/groupMixin";
+
 export default {
     name: "Member",
+    mixins:[groupMixin],
     props: {
         member: {
             type: Object
@@ -104,7 +108,7 @@ export default {
             if (this.member.status === 'BLOCKED' || this.member.status === 'LEAVE') {
                 return 'danger';
             }
-            return 'success';
+            return 'primary';
         }
     }
 }
