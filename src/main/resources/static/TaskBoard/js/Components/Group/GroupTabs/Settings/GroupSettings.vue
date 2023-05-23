@@ -70,7 +70,7 @@
                 <div class="col-12 sectionDelete">
                     <div class="row itemSetting align-items-end">
                         <div class="col-10">
-                            <label class="text-danger pointer deleteLabel" style="text-decoration: underline">Удалить раболее пространство?</label>
+                            <label class="text-danger pointer deleteLabel" style="text-decoration: underline">Удалить рабочее пространство?</label>
                         </div>
                     </div>
                 </div>
