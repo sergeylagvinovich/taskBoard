@@ -27,7 +27,7 @@ public class GroupUserDto {
         this.firstName = args[1].toString();
         this.email = args[2].toString();
         this.status = args[3].toString();
-        this.role = GroupRole.values()[(Short) args[4]];
+        this.role = GroupRole.valueOf(args[4].toString());
         ArrayList boardsData = (ArrayList) args[5];
         for (int i = 0; i < boardsData.size(); i++) {
             LinkedHashMap item = (LinkedHashMap)boardsData.get(i);

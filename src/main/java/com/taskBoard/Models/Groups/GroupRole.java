@@ -1,9 +1,9 @@
 package com.taskBoard.Models.Groups;
 
 public enum GroupRole {
-    ADMIN("admin"),
-    PARTICIPANT("participant"),
-    GUEST("guest");
+    ADMIN("ADMIN"),
+    PARTICIPANT("PARTICIPANT"),
+    GUEST("GUEST");
 
     private String name;
 

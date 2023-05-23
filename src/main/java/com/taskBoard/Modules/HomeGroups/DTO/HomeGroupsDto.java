@@ -25,7 +25,7 @@ public class HomeGroupsDto {
 
         this.id = args[0].toString();
         this.name = args[1].toString();
-        this.role = GroupRole.values()[(Short) args[2]];
+        this.role = GroupRole.valueOf(args[2].toString());
         ArrayList boardsData = (ArrayList) args[3];
         for (int i = 0; i < boardsData.size(); i++) {
             LinkedHashMap item = (LinkedHashMap)boardsData.get(i);

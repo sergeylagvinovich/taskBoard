@@ -18,7 +18,7 @@ public interface GroupMapper {
     public default void setCurrentRole(Group group, @MappingTarget GroupDto target){
 
         GroupUser gu = group.getUsers()
-                .stream().filter(x->x.getUser().getUUID().equals(UUID.fromString("4e413063-69ed-480c-a9b1-2f30d9d07276")))
+                .stream().filter(x->x.getUser().getUUID().equals(UUID.fromString("2ba4eb12-f3d0-4ca8-ab02-55b52d8bf171")))
                 .findFirst().orElse(null);
         if(gu != null) {
             target.setRole(gu.getRole().name());

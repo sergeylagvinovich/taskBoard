@@ -53,7 +53,7 @@
         </div>
         <b-collapse :visible="expand" :appear="false" :id="source.id+'-boards-collapse'" class="col-12 ">
             <div class="row">
-                <div class="col-3 pr-0" >
+                <div class="col-3 pr-0" v-if="source.role=='ADMIN'">
                     <div class="boardCardAdd pointer">
                         <div>
                             <label class="col-form-label">{{lang['addBoard']}}</label>

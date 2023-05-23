@@ -33,6 +33,7 @@ public class GroupUser {
     private Group group;
 
     @Column
+    @Enumerated(EnumType.STRING)
     protected GroupRole role;
 
     @Column

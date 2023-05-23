@@ -14,7 +14,7 @@
             <span
                    class="pr-2 btn btn-outline-primary"
                    style="min-width: 150px"
-                   @click="()=>{if(canEdit){$root.$emit('bv::hide::popover');popoverRolesShow=true;}}"
+                   @click="editRole"
                    :id="member.userUUID+'-member-role'"
            >
               {{ member.role }}
@@ -29,8 +29,11 @@
             </span>
             <span
                     class="pointer pr-2"
+                    v-if="canEdit"
+                    @click="saveUser(member.role,member.status==='BLOCKED'?'ACTIVE':'BLOCKED')"
             >
-              <b-icon-dash-circle-fill style="color: #dc3545"/>
+              <b-icon-dash-circle-fill v-show="member.status !== 'BLOCKED'" class="text-danger"/>
+              <b-icon-check-circle-fill v-show="member.status === 'BLOCKED'" class="text-primary"/>
             </span>
             <b-popover
                     placement="bottom"
@@ -46,7 +49,7 @@
                 <div class="container">
                     <div class="row align-items-center mb-2">
                         <div class="col-12 mx-auto text-center">
-                            <select class="form-control" v-model="member.role">
+                            <select class="form-control" v-model="role">
                                 <option value="ADMIN">Администратор</option>
                                 <option value="PARTICIPANT">Участник</option>
                                 <option value="GUEST">Гость</option>
@@ -55,7 +58,7 @@
                     </div>
                     <div class="row align-items-center">
                         <div class="col-12 mx-auto text-center">
-                            <button class="btn btn-primary">Сохранить</button>
+                            <button class="btn btn-primary" @click="saveUser(role,member.status)">Сохранить</button>
                             <button class="btn btn-outline-danger" @click="popoverRolesShow=!popoverRolesShow">Закрыть</button>
                         </div>
                     </div>
@@ -88,6 +91,7 @@
 
 <script>
 import groupMixin from "../../../../../../js/modules/Mixins/groupMixin";
+import {mapActions} from "vuex";
 
 export default {
     name: "Member",
@@ -99,6 +103,7 @@ export default {
     },
     data(){
         return {
+            role:null,
             popoverRolesShow: false,
             popoverMemberBoardsShow:false,
         }
@@ -109,6 +114,34 @@ export default {
                 return 'danger';
             }
             return 'primary';
+        }
+    },
+    methods:{
+        ...mapActions({
+            'putUser':"GroupUserModule/saveUser"
+        }),
+        async saveUser(role, status){
+            let data = {
+                group_uuid:this.$route.params.id,
+                user_uuid:this.member.userUUID,
+                edit:{
+                    roleGroup:role,
+                    statusUser:status
+                }
+            }
+            let result = await this.putUser(data);
+            if(result){
+                this.member.role = role;
+                this.member.status = status;
+                this.popoverRolesShow = false;
+            }
+        },
+        editRole(){
+            if(this.canEdit){
+                this.$root.$emit('bv::hide::popover');
+                this.popoverRolesShow=true;
+                this.role = this.member.role
+            }
         }
     }
 }

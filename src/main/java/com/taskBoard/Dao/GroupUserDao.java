@@ -24,4 +24,7 @@ public interface GroupUserDao extends CrudRepository<GroupUser, UUID> {
             "\torder by gu.created_at")
     List<Object[]> getUserByGroupUUID(UUID group_uuid);
 
+    GroupUser getGroupUserByUserUUIDAndGroupUUID(UUID userUUID, UUID groupUUID);
+
+
 }

@@ -27,7 +27,7 @@ public class HomeGroupsController {
     private HomeGroupService homeGroupService;
     @GetMapping
     public ResponseEntity<ResponseAPIDto> getAllGroupsByUser(@RequestParam Integer page, @RequestParam Integer size){
-        User user = userDao.findById(UUID.fromString("4e413063-69ed-480c-a9b1-2f30d9d07276"))
+        User user = userDao.findById(UUID.fromString("2ba4eb12-f3d0-4ca8-ab02-55b52d8bf171"))
                 .orElseThrow(()->new NotFoundException("Не найден пользователь"));
         if(page == null){
             page = 1;

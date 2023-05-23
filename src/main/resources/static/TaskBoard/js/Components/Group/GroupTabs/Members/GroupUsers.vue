@@ -75,7 +75,7 @@ export default {
     },
     methods: {
         ...mapActions({
-          'fetchUsers':'GroupsModule/fetchGroupUsersByUUID'
+          'fetchUsers':'GroupUserModule/fetchGroupUsersByUUID'
         }),
         async init() {
            this.loading = true;

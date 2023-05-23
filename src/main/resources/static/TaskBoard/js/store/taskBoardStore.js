@@ -8,6 +8,7 @@ import ToastModule from "./modules/ToastModule";
 import GroupsModule from "./modules/GroupsModule";
 import ResponseHandling from "../../../js/modules/ResponseHandling";
 import BoardsModule from "./modules/BoardsModule";
+import GroupUserModule from "./modules/GroupUserModule";
 const store = new Vuex.Store({
     modules:{
         languageModule,
@@ -17,7 +18,8 @@ const store = new Vuex.Store({
         ToastModule,
 
         GroupsModule,
-        BoardsModule
+        BoardsModule,
+        GroupUserModule
     }
 })
 export default store;
