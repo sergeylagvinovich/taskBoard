@@ -3,6 +3,7 @@ package com.taskBoard.ExceptionHandler;
 import com.taskBoard.Configurations.Responces.ResponseAPIDto;
 import com.taskBoard.ExceptionHandler.Exceptions.NotFoundException;
 import com.taskBoard.Modules.HomeGroups.Exceptions.HomeGroupException;
+import com.taskBoard.core.Base.ResponseApi;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,33 +14,27 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class ExceptionHandlerController {
 
-    @ExceptionHandler({HomeGroupException.class})
+    @ExceptionHandler({RuntimeException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<ResponseAPIDto> handleInternalServerError(
+    public ResponseEntity<ResponseApi> handleInternalServerError(
             RuntimeException exception,
             WebRequest request
     ){
-        ResponseAPIDto responseAPIDto =
-                ResponseAPIDto.builder()
-                        .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                        .message(exception.getMessage())
-                        .build();
-        return new ResponseEntity<>(responseAPIDto,HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseApi responseApi = new ResponseApi().setCode(HttpStatus.INTERNAL_SERVER_ERROR.value()).setMessage(exception.getMessage());
+        return new ResponseEntity<>(responseApi,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
     @ExceptionHandler({NotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<ResponseAPIDto> handleNotFoundError(
+    public ResponseEntity<ResponseApi> handleNotFoundError(
             RuntimeException exception,
             WebRequest request
     ){
-        ResponseAPIDto responseAPIDto =
-                ResponseAPIDto.builder()
-                        .status(HttpStatus.NOT_FOUND.value())
-                        .message(exception.getMessage())
-                        .build();
-        return new ResponseEntity<>(responseAPIDto,HttpStatus.NOT_FOUND);
+        ResponseApi responseApi = new ResponseApi()
+                .setCode(HttpStatus.NOT_FOUND.value())
+                .setMessage(exception.getMessage());
+        return new ResponseEntity<>(responseApi,HttpStatus.NOT_FOUND);
     }
 
 }

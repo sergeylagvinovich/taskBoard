@@ -12,15 +12,18 @@ import com.taskBoard.Models.Groups.GroupRole;
 import com.taskBoard.Models.Groups.GroupUser;
 import com.taskBoard.Models.Groups.GroupUserStatus;
 import com.taskBoard.Models.User;
+import com.taskBoard.Modules.Group.Dto.BoardDto;
+import com.taskBoard.Modules.Group.Dto.GroupDto;
+import com.taskBoard.Modules.Group.Dto.Requests.Group.Params.GroupParams;
 import com.taskBoard.Modules.Group.Services.GroupService;
+import com.taskBoard.core.Base.ResponseApi;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +31,9 @@ import java.util.Random;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/groups/")
+@RequestMapping(value = "api/v1/groups/",
+        headers="Accept=*/*",
+        produces = MediaType.APPLICATION_JSON_VALUE)
 public class GroupController {
 
     @Autowired
@@ -46,8 +51,12 @@ public class GroupController {
 
     private final Random rnd = new Random();
     @GetMapping("/{uuid_group}")
-    public ResponseEntity<ResponseAPIDto> getGroup(@PathVariable(name = "uuid_group") UUID groupUUID){
-        ResponseAPIDto response = ResponseAPIDto.builder().data(groupService.getGroup(groupUUID)).status(200).build();
+    public ResponseEntity<ResponseApi<GroupDto>> getGroup(
+            @PathVariable(name = "uuid_group") UUID groupUUID,
+            @RequestBody GroupParams params
+            ){
+
+        ResponseApi<GroupDto> response = new ResponseApi<GroupDto>().setData(groupService.getGroup(groupUUID));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -60,7 +69,7 @@ public class GroupController {
 
 
     @GetMapping("/{uuid_group}/settings")
-    public ResponseEntity<ResponseAPIDto> getGroupSettings(@PathVariable(name = "uuid_group") UUID groupUUID){
+    public ResponseEntity<ResponseApi<List<BoardDto>>> getGroupSettings(@PathVariable(name = "uuid_group") UUID groupUUID){
         return null;
     }
 

@@ -1,5 +1,6 @@
 package com.taskBoard.Modules.Group.Dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,11 +12,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class GroupDto {
 
-    String id = null;
-    String shortName = null;
-    String fullName = null;
-    String note = null;
-    String url = null;
-    String role = null;
+    String id;
+    String shortName;
+    String fullName;
+    String note;
+    String url;
+    String role;
 
 }

@@ -37,7 +37,7 @@ public class GroupServiceImpl implements GroupService {
             = Mappers.getMapper(BoardMapper.class);
     @Override
     public GroupDto getGroup(UUID group_uuid) {
-        return  groupMapper.modelToDto(groupDao.findById(group_uuid).orElseThrow(()->new NotFoundException(ResponseMessageException.GROUP_NOT_FOUND.getCode())));
+        return  groupMapper.modelToDto(groupDao.findById(group_uuid).orElseThrow(()->new NotFoundException("Группа не найдена")));
     }
 
     @Override
