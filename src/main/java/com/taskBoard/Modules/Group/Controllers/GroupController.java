@@ -1,5 +1,6 @@
 package com.taskBoard.Modules.Group.Controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.taskBoard.Configurations.Responces.ResponseAPIDto;
 import com.taskBoard.Dao.BoardDoa;
 import com.taskBoard.Dao.GroupDao;
@@ -16,6 +17,7 @@ import com.taskBoard.Modules.Group.Dto.BoardDto;
 import com.taskBoard.Modules.Group.Dto.GroupDto;
 import com.taskBoard.Modules.Group.Dto.Requests.Group.Params.GroupParams;
 import com.taskBoard.Modules.Group.Services.GroupService;
+import com.taskBoard.Modules.Group.Views.Views;
 import com.taskBoard.core.Base.ResponseApi;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +53,21 @@ public class GroupController {
 
     private final Random rnd = new Random();
     @GetMapping("/{uuid_group}")
-    public ResponseEntity<ResponseApi<GroupDto>> getGroup(
-            @PathVariable(name = "uuid_group") UUID groupUUID,
-            @RequestBody GroupParams params
+//    @JsonView(Views.GroupInfo.class)
+    public ResponseEntity<GroupDto> getGroup(
+            @PathVariable(name = "uuid_group") UUID groupUUID
             ){
+        GroupDto gdto = groupService.getGroup(groupUUID);
+        return new ResponseEntity<>(gdto, HttpStatus.OK);
+    }
 
-        ResponseApi<GroupDto> response = new ResponseApi<GroupDto>().setData(groupService.getGroup(groupUUID));
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    @GetMapping("/{uuid_group}/details")
+//    @JsonView(Views.GroupInfoDetails.class)
+    public ResponseEntity<GroupDto> getGroupDetails(
+            @PathVariable(name = "uuid_group") UUID groupUUID
+    ){
+        GroupDto gdto = groupService.getGroup(groupUUID);
+        return new ResponseEntity<>(gdto, HttpStatus.OK);
     }
 
     @GetMapping("/{uuid_group}/boards")
@@ -109,7 +119,7 @@ public class GroupController {
                     .shortName("g-"+i)
                     .note("group "+i+" note")
                     .build();
-            Integer rndBoardCount = rnd.nextInt(1,11);
+            int rndBoardCount = rnd.nextInt(1,11);
             for (int j = 0; j < rndBoardCount; j++) {
                 Board b = Board.builder()
                         .name("board_name")

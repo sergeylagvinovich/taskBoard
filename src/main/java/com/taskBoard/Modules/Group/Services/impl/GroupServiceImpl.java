@@ -1,10 +1,12 @@
 package com.taskBoard.Modules.Group.Services.impl;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.taskBoard.Dao.BoardDoa;
 import com.taskBoard.Dao.GroupDao;
 import com.taskBoard.Dao.GroupUserDao;
 import com.taskBoard.ExceptionHandler.Exceptions.NotFoundException;
+import com.taskBoard.Models.Groups.Group;
 import com.taskBoard.Modules.Group.Dto.BoardDto;
 import com.taskBoard.Modules.Group.Dto.GroupDto;
 import com.taskBoard.Modules.Group.Dto.GroupUserDto;
@@ -12,6 +14,7 @@ import com.taskBoard.Modules.Group.Mappers.BoardMapper;
 import com.taskBoard.Modules.Group.Mappers.GroupMapper;
 import com.taskBoard.Modules.Group.Services.GroupService;
 import com.taskBoard.ExceptionHandler.ResponseMessageException;
+import com.taskBoard.Modules.Group.Views.Views;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,8 +39,10 @@ public class GroupServiceImpl implements GroupService {
     private final BoardMapper boardMapper
             = Mappers.getMapper(BoardMapper.class);
     @Override
+//    @JsonView(Views.GroupInfo.class)
     public GroupDto getGroup(UUID group_uuid) {
-        return  groupMapper.modelToDto(groupDao.findById(group_uuid).orElseThrow(()->new NotFoundException("Группа не найдена")));
+        Group g = groupDao.findById(group_uuid).orElseThrow(()->new NotFoundException("Группа не найдена"));
+        return  groupMapper.modelToDto(g);
     }
 
     @Override
