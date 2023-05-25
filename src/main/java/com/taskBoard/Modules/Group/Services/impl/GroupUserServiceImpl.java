@@ -8,9 +8,11 @@ import com.taskBoard.Models.Groups.GroupUserStatus;
 import com.taskBoard.Modules.Group.Dto.Requests.Members.EditUserDto;
 import com.taskBoard.Modules.Group.Services.GroupUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Service
 public class GroupUserServiceImpl implements GroupUserService {
 
     @Autowired

@@ -14,14 +14,5 @@ public class BeanServicesConfig {
         return new HomeGroupServiceImpl();
     }
 
-    @Bean
-    public GroupServiceImpl getGroupService() {
-        return new GroupServiceImpl();
-    }
-
-    @Bean
-    public GroupUserServiceImpl getGroupUserService() {
-        return new GroupUserServiceImpl();
-    }
 
 }

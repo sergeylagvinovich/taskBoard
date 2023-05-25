@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-@Service
 public interface GroupService {
 
     public GroupDto getGroup(UUID group_uuid);

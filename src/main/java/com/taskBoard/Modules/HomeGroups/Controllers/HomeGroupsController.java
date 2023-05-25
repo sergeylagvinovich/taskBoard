@@ -1,7 +1,7 @@
 package com.taskBoard.Modules.HomeGroups.Controllers;
 
 import com.taskBoard.Configurations.Responces.ResponseAPIDto;
-import com.taskBoard.Dao.UserDao;
+import com.taskBoard.Modules.Users.Dao.UserDao;
 import com.taskBoard.ExceptionHandler.Exceptions.NotFoundException;
 import com.taskBoard.Models.User;
 import com.taskBoard.Modules.HomeGroups.Serices.HomeGroupService;

@@ -30,6 +30,9 @@ public class User extends BaseModel {
     @Column
     private String img;
 
+    @Column
+    private String password;
+
     @OneToMany(mappedBy = "id.user", fetch = FetchType.LAZY)
     private Set<GroupUser> groups = new HashSet<>();
 

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Service
+
 public interface GroupUserService {
 
     Boolean saveEditGroupUser(UUID groupUUID, UUID userUUID, EditUserDto editUser);
