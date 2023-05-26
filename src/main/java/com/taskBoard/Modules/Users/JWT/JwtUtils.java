@@ -9,6 +9,7 @@ public class JwtUtils {
         jwtInfoToken.setFirstName(claims.get("firstName", String.class));
         jwtInfoToken.setUsername(claims.getSubject());
         jwtInfoToken.setId(claims.getId());
+        jwtInfoToken.setAuthenticated(true);
         return jwtInfoToken;
     }
 

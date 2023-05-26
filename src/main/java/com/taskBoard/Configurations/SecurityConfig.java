@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.io.IOException;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -33,10 +35,7 @@ public class SecurityConfig {
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(
-                        (request, response, ex) -> response.sendError(
-                                HttpServletResponse.SC_UNAUTHORIZED,
-                                ex.getMessage()
-                        )
+                        (request, response, ex) -> sendError(response,ex)
                 )
                 .and()
                 .authorizeHttpRequests(
@@ -46,6 +45,13 @@ public class SecurityConfig {
                                 .and()
                                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 ).build();
+    }
+
+    private void sendError(HttpServletResponse response,Exception ex) throws IOException {
+        response.sendError(
+                HttpServletResponse.SC_UNAUTHORIZED,
+                ex.getMessage()
+        );
     }
 
     @Bean

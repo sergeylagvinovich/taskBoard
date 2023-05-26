@@ -33,7 +33,7 @@ public class JwtProvider {
 
     public String generateAccessToken(User user) {
         final LocalDateTime now = LocalDateTime.now();
-        final Instant accessExpirationInstant = now.plusMinutes(5).atZone(ZoneId.systemDefault()).toInstant();
+        final Instant accessExpirationInstant = now.plusMinutes(1).atZone(ZoneId.systemDefault()).toInstant();
         final Date accessExpiration = Date.from(accessExpirationInstant);
         return Jwts.builder()
                 .setId(user.getUUID().toString())
@@ -73,38 +73,42 @@ public class JwtProvider {
             return true;
         } catch (ExpiredJwtException expEx) {
             log.error("Token expired", expEx);
+            throw new SecurityException("Token expired");
         } catch (UnsupportedJwtException unsEx) {
             log.error("Unsupported jwt", unsEx);
+            throw new SecurityException("Token expired");
         } catch (MalformedJwtException mjEx) {
             log.error("Malformed jwt", mjEx);
+            throw new SecurityException("Token expired");
         } catch (SignatureException sEx) {
             log.error("Invalid signature", sEx);
+            throw new SecurityException("Token expired",sEx);
         } catch (Exception e) {
             log.error("invalid token", e);
+            throw new SecurityException("Token expired");
         }
-        return false;
     }
 
-    public boolean validateToken( String token) {
-        try {
-            Jwts.parserBuilder()
-                    .setSigningKey(jwtAccessSecret)
-                    .build()
-                    .parseClaimsJws(token);
-            return true;
-        } catch (ExpiredJwtException expEx) {
-            log.error("Token expired", expEx);
-        } catch (UnsupportedJwtException unsEx) {
-            log.error("Unsupported jwt", unsEx);
-        } catch (MalformedJwtException mjEx) {
-            log.error("Malformed jwt", mjEx);
-        } catch (SignatureException sEx) {
-            log.error("Invalid signature", sEx);
-        } catch (Exception e) {
-            log.error("invalid token", e);
-        }
-        return false;
-    }
+//    public boolean validateToken( String token) {
+//        try {
+//            Jwts.parserBuilder()
+//                    .setSigningKey(jwtAccessSecret)
+//                    .build()
+//                    .parseClaimsJws(token);
+//            return true;
+//        } catch (ExpiredJwtException expEx) {
+//            log.error("Token expired", expEx);
+//        } catch (UnsupportedJwtException unsEx) {
+//            log.error("Unsupported jwt", unsEx);
+//        } catch (MalformedJwtException mjEx) {
+//            log.error("Malformed jwt", mjEx);
+//        } catch (SignatureException sEx) {
+//            log.error("Invalid signature", sEx);
+//        } catch (Exception e) {
+//            log.error("invalid token", e);
+//        }
+//        return false;
+//    }
 
     public Claims getAccessClaims(String token) {
         return getClaims(token, jwtAccessSecret);
@@ -122,13 +126,13 @@ public class JwtProvider {
                 .getBody();
     }
 
-    public Claims getClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(jwtAccessSecret)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-    }
+//    public Claims getClaims(String token) {
+//        return Jwts.parserBuilder()
+//                .setSigningKey(jwtAccessSecret)
+//                .build()
+//                .parseClaimsJws(token)
+//                .getBody();
+//    }
 
 
 

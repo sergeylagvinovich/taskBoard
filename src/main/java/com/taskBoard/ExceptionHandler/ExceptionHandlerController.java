@@ -4,12 +4,15 @@ import com.taskBoard.Configurations.Responces.ResponseAPIDto;
 import com.taskBoard.ExceptionHandler.Exceptions.NotFoundException;
 import com.taskBoard.Modules.HomeGroups.Exceptions.HomeGroupException;
 import com.taskBoard.core.Base.ResponseApi;
+import jakarta.security.auth.message.AuthException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
+
+import java.io.IOException;
 
 @ControllerAdvice
 public class ExceptionHandlerController {
@@ -36,5 +39,20 @@ public class ExceptionHandlerController {
                 .setMessage(exception.getMessage());
         return new ResponseEntity<>(responseApi,HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler({SecurityException.class})
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<ResponseApi> handleNotFoundError(
+            SecurityException exception,
+            WebRequest request
+    ){
+        ResponseApi responseApi = new ResponseApi()
+                .setCode(HttpStatus.UNAUTHORIZED.value())
+                .setMessage(exception.getMessage());
+        return new ResponseEntity<>(responseApi,HttpStatus.UNAUTHORIZED);
+    }
+
+
+
 
 }
