@@ -36,6 +36,7 @@ public class JwtProvider {
         final Instant accessExpirationInstant = now.plusMinutes(5).atZone(ZoneId.systemDefault()).toInstant();
         final Date accessExpiration = Date.from(accessExpirationInstant);
         return Jwts.builder()
+                .setId(user.getUUID().toString())
                 .setSubject(user.getEmail())
                 .setExpiration(accessExpiration)
                 .signWith(jwtAccessSecret)
@@ -48,6 +49,7 @@ public class JwtProvider {
         final Instant refreshExpirationInstant = now.plusDays(30).atZone(ZoneId.systemDefault()).toInstant();
         final Date refreshExpiration = Date.from(refreshExpirationInstant);
         return Jwts.builder()
+                .setId(user.getUUID().toString())
                 .setSubject(user.getEmail())
                 .setExpiration(refreshExpiration)
                 .signWith(jwtRefreshSecret)
@@ -83,6 +85,27 @@ public class JwtProvider {
         return false;
     }
 
+    public boolean validateToken( String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(jwtAccessSecret)
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (ExpiredJwtException expEx) {
+            log.error("Token expired", expEx);
+        } catch (UnsupportedJwtException unsEx) {
+            log.error("Unsupported jwt", unsEx);
+        } catch (MalformedJwtException mjEx) {
+            log.error("Malformed jwt", mjEx);
+        } catch (SignatureException sEx) {
+            log.error("Invalid signature", sEx);
+        } catch (Exception e) {
+            log.error("invalid token", e);
+        }
+        return false;
+    }
+
     public Claims getAccessClaims(String token) {
         return getClaims(token, jwtAccessSecret);
     }
@@ -98,6 +121,15 @@ public class JwtProvider {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
+    public Claims getClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(jwtAccessSecret)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
 
 
 }

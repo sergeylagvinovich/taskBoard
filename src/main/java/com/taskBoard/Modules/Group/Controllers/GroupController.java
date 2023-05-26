@@ -5,6 +5,7 @@ import com.taskBoard.Configurations.Responces.ResponseAPIDto;
 import com.taskBoard.Dao.BoardDoa;
 import com.taskBoard.Dao.GroupDao;
 import com.taskBoard.Dao.GroupUserDao;
+import com.taskBoard.Modules.Auth.Services.AuthService;
 import com.taskBoard.Modules.Users.Dao.UserDao;
 import com.taskBoard.Models.Boards.Board;
 import com.taskBoard.Models.Groups.Composite.GroupUsersID;
@@ -18,11 +19,14 @@ import com.taskBoard.Modules.Group.Dto.GroupDto;
 import com.taskBoard.Modules.Group.Dto.Requests.Group.Params.GroupParams;
 import com.taskBoard.Modules.Group.Services.GroupService;
 import com.taskBoard.Modules.Group.Views.Views;
+import com.taskBoard.Modules.Users.JWT.JwtAuthentication;
+import com.taskBoard.Modules.Users.JWT.JwtProvider;
 import com.taskBoard.core.Base.ResponseApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,12 +54,15 @@ public class GroupController {
     @Autowired
     GroupUserDao groupUserDao;
 
+    @Autowired
+    AuthService authService;
+
     private final Random rnd = new Random();
     @GetMapping("/{uuid_group}")
-//    @JsonView(Views.GroupInfo.class)
-    public ResponseEntity<GroupDto> getGroup(
+    public ResponseEntity<GroupDto> getGroup(@AuthenticationPrincipal User user,
             @PathVariable(name = "uuid_group") UUID groupUUID
             ){
+        JwtAuthentication authInfo = authService.getAuthInfo();
         GroupDto gdto = groupService.getGroup(groupUUID);
         return new ResponseEntity<>(gdto, HttpStatus.OK);
     }
