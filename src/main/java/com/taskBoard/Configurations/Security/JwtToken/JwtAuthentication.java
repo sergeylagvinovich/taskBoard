@@ -1,6 +1,13 @@
-package com.taskBoard.Modules.Users.JWT;
+package com.taskBoard.Configurations.Security.JwtToken;
 
+import com.taskBoard.ExceptionHandler.Exceptions.NotFoundException;
+import com.taskBoard.Models.User;
+import com.taskBoard.Modules.Users.Dao.UserDao;
+import com.taskBoard.Modules.Users.Services.UserService;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -11,9 +18,9 @@ import java.util.UUID;
 public class JwtAuthentication implements Authentication {
 
     private boolean authenticated;
-    private String username;
-    private String firstName;
+    private String email;
     private String id;
+    private User user;
 
     public UUID getUUID(){
         return UUID.fromString(this.id);
@@ -36,7 +43,7 @@ public class JwtAuthentication implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return username;
+        return this.user;
     }
 
     @Override
@@ -49,10 +56,9 @@ public class JwtAuthentication implements Authentication {
         this.authenticated = isAuthenticated;
     }
 
+
     @Override
     public String getName() {
-        return firstName;
+        return this.email;
     }
-
-
 }

@@ -1,13 +1,13 @@
-package com.taskBoard.Modules.Users.JWT;
+package com.taskBoard.Configurations.Security.JwtToken.Utils;
 
+import com.taskBoard.Configurations.Security.JwtToken.JwtAuthentication;
 import io.jsonwebtoken.Claims;
 
 public class JwtUtils {
 
     public static JwtAuthentication generate(Claims claims) {
         final JwtAuthentication jwtInfoToken = new JwtAuthentication();
-        jwtInfoToken.setFirstName(claims.get("firstName", String.class));
-        jwtInfoToken.setUsername(claims.getSubject());
+        jwtInfoToken.setEmail(claims.getSubject());
         jwtInfoToken.setId(claims.getId());
         jwtInfoToken.setAuthenticated(true);
         return jwtInfoToken;

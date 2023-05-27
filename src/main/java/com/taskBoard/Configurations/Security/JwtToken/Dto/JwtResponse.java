@@ -1,4 +1,4 @@
-package com.taskBoard.Modules.Users.JWT;
+package com.taskBoard.Configurations.Security.JwtToken.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

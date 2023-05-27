@@ -1,6 +1,6 @@
-package com.taskBoard.Configurations;
+package com.taskBoard.Configurations.Security;
 
-import com.taskBoard.Modules.Users.Filter.JwtFilter;
+import com.taskBoard.Configurations.Security.Filter.JwtFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -40,7 +40,12 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(
                         authz -> authz
-                                .requestMatchers("/api/auth/login").permitAll()
+                                .requestMatchers(
+                                        "/api/auth/login",
+                                        "/api/auth/refresh",
+                                        "/api/auth/token",
+                                        "/api/auth/registration"
+                                ).permitAll()
                                 .anyRequest().authenticated()
                                 .and()
                                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)

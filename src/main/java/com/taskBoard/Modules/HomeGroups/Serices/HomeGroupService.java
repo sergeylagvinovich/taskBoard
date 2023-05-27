@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Service
 public interface HomeGroupService {
-
-    public HomeGroupsPage getGroupsForUser(UUID user_uuid, Pageable pageable);
+    HomeGroupsPage getGroupsForUser(UUID user_uuid, Pageable pageable);
 }

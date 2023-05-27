@@ -1,6 +1,5 @@
 package com.taskBoard.Modules.Group.Controllers;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.taskBoard.Configurations.Responces.ResponseAPIDto;
 import com.taskBoard.Dao.BoardDoa;
 import com.taskBoard.Dao.GroupDao;
@@ -17,7 +16,7 @@ import com.taskBoard.Models.User;
 import com.taskBoard.Modules.Group.Dto.BoardDto;
 import com.taskBoard.Modules.Group.Dto.GroupDto;
 import com.taskBoard.Modules.Group.Services.GroupService;
-import com.taskBoard.Modules.Users.JWT.JwtAuthentication;
+import com.taskBoard.Configurations.Security.JwtToken.JwtAuthentication;
 import com.taskBoard.core.Base.ResponseApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,7 +55,7 @@ public class GroupController {
 
     private final Random rnd = new Random();
     @GetMapping("/{uuid_group}")
-    public ResponseEntity<GroupDto> getGroup(@AuthenticationPrincipal JwtAuthentication jwtAuth,
+    public ResponseEntity<GroupDto> getGroup(@AuthenticationPrincipal User user,
             @PathVariable(name = "uuid_group") UUID groupUUID
             ){
         JwtAuthentication authInfo = authService.getAuthInfo();

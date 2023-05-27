@@ -2,16 +2,16 @@ package com.taskBoard.Modules.Auth.Services.impl;
 
 import com.taskBoard.Models.User;
 import com.taskBoard.Modules.Auth.Services.AuthService;
-import com.taskBoard.Modules.Users.JWT.JwtAuthentication;
-import com.taskBoard.Modules.Users.JWT.JwtProvider;
-import com.taskBoard.Modules.Users.JWT.JwtRequest;
-import com.taskBoard.Modules.Users.JWT.JwtResponse;
+import com.taskBoard.Configurations.Security.JwtToken.JwtAuthentication;
+import com.taskBoard.Configurations.Security.JwtToken.Components.JwtProvider;
+import com.taskBoard.Configurations.Security.JwtToken.Dto.JwtRequest;
+import com.taskBoard.Configurations.Security.JwtToken.Dto.JwtResponse;
+import com.taskBoard.Modules.Users.Dto.NewUserDto;
 import com.taskBoard.Modules.Users.Services.UserService;
 import io.jsonwebtoken.Claims;
 import jakarta.security.auth.message.AuthException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,10 +27,11 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthServiceImpl(UserService userService, JwtProvider jwtProvider, PasswordEncoder passwordEncoder) {
+    public AuthServiceImpl(UserService userService, JwtProvider jwtProvider, PasswordEncoder passwordEncoder, UserService userService1) {
         this.userService = userService;
         this.jwtProvider = jwtProvider;
         this.passwordEncoder = passwordEncoder;
+
     }
 
     @Override
@@ -85,5 +86,12 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public JwtAuthentication getAuthInfo() {
         return (JwtAuthentication) SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    @Override
+    public JwtResponse registration(NewUserDto newUser) throws AuthException {
+        User user = userService.createUser(newUser);
+        JwtRequest jwtRequest = new JwtRequest(newUser.getEmail(),newUser.getPassword());
+        return this.login(jwtRequest);
     }
 }

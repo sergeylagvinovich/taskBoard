@@ -1,9 +1,10 @@
-package com.taskBoard.Modules.Users.Filter;
+package com.taskBoard.Configurations.Security.Filter;
 
-import com.taskBoard.Modules.Auth.Services.AuthService;
-import com.taskBoard.Modules.Users.JWT.JwtAuthentication;
-import com.taskBoard.Modules.Users.JWT.JwtProvider;
-import com.taskBoard.Modules.Users.JWT.JwtUtils;
+import com.taskBoard.Configurations.Security.JwtToken.JwtAuthentication;
+import com.taskBoard.Configurations.Security.JwtToken.Components.JwtProvider;
+import com.taskBoard.Configurations.Security.JwtToken.Utils.JwtUtils;
+import com.taskBoard.Modules.Users.Dao.UserDao;
+import com.taskBoard.Modules.Users.Services.UserService;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -26,9 +27,11 @@ public class JwtFilter extends GenericFilterBean {
 
     private final JwtProvider jwtProvider;
 
-    @Autowired
-    public JwtFilter(JwtProvider jwtProvider) {
+    private final UserDao userDao;
+
+    public JwtFilter(JwtProvider jwtProvider, UserDao userDao) {
         this.jwtProvider = jwtProvider;
+        this.userDao = userDao;
     }
 
     @Override
@@ -37,6 +40,7 @@ public class JwtFilter extends GenericFilterBean {
         if (token != null && jwtProvider.validateAccessToken(token)) {
             final Claims claims = jwtProvider.getAccessClaims(token);
             final JwtAuthentication jwtInfoToken = JwtUtils.generate(claims);
+            jwtInfoToken.setUser(userDao.getUserByEmail(jwtInfoToken.getEmail()).orElse(null));
             SecurityContextHolder.getContext().setAuthentication(jwtInfoToken);
         }
         filterChain.doFilter(servletRequest, servletResponse);
