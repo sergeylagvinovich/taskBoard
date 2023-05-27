@@ -5,6 +5,7 @@ import com.taskBoard.Dao.BoardDoa;
 import com.taskBoard.Dao.GroupDao;
 import com.taskBoard.Dao.GroupUserDao;
 import com.taskBoard.Modules.Auth.Services.AuthService;
+import com.taskBoard.Modules.Group.Dto.NewGroupDto;
 import com.taskBoard.Modules.Users.Dao.UserDao;
 import com.taskBoard.Models.Boards.Board;
 import com.taskBoard.Models.Groups.Composite.GroupUsersID;
@@ -32,7 +33,7 @@ import java.util.Random;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "api/v1/groups/",
+@RequestMapping(value = "api/v1/groups",
         headers="Accept=*/*",
         produces = MediaType.APPLICATION_JSON_VALUE)
 public class GroupController {
@@ -54,12 +55,18 @@ public class GroupController {
     AuthService authService;
 
     private final Random rnd = new Random();
+
     @GetMapping("/{uuid_group}")
     public ResponseEntity<GroupDto> getGroup(@AuthenticationPrincipal User user,
             @PathVariable(name = "uuid_group") UUID groupUUID
             ){
-        JwtAuthentication authInfo = authService.getAuthInfo();
         GroupDto gdto = groupService.getGroup(groupUUID);
+        return new ResponseEntity<>(gdto, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<GroupDto> createGroup(@AuthenticationPrincipal User user, @RequestBody NewGroupDto newGroupDto){
+        GroupDto gdto = groupService.create(newGroupDto, user);
         return new ResponseEntity<>(gdto, HttpStatus.OK);
     }
 

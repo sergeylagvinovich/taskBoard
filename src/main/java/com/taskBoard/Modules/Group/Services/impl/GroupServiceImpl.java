@@ -6,10 +6,16 @@ import com.taskBoard.Dao.BoardDoa;
 import com.taskBoard.Dao.GroupDao;
 import com.taskBoard.Dao.GroupUserDao;
 import com.taskBoard.ExceptionHandler.Exceptions.NotFoundException;
+import com.taskBoard.Models.Groups.Composite.GroupUsersID;
 import com.taskBoard.Models.Groups.Group;
+import com.taskBoard.Models.Groups.GroupRole;
+import com.taskBoard.Models.Groups.GroupUser;
+import com.taskBoard.Models.Groups.GroupUserStatus;
+import com.taskBoard.Models.User;
 import com.taskBoard.Modules.Group.Dto.BoardDto;
 import com.taskBoard.Modules.Group.Dto.GroupDto;
 import com.taskBoard.Modules.Group.Dto.GroupUserDto;
+import com.taskBoard.Modules.Group.Dto.NewGroupDto;
 import com.taskBoard.Modules.Group.Mappers.BoardMapper;
 import com.taskBoard.Modules.Group.Mappers.GroupMapper;
 import com.taskBoard.Modules.Group.Services.GroupService;
@@ -18,6 +24,7 @@ import com.taskBoard.Modules.Group.Views.Views;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +52,19 @@ public class GroupServiceImpl implements GroupService {
     public GroupDto getGroup(UUID group_uuid) {
         Group g = groupDao.findById(group_uuid).orElseThrow(()->new NotFoundException("Группа не найдена"));
         return  groupMapper.modelToDto(g);
+    }
+
+    @Override
+    @Transactional
+    public GroupDto create(NewGroupDto newGroupDto, User user) {
+        Group newGroup = groupMapper.newGroupDtoToModel(newGroupDto);
+        newGroup = groupDao.save(newGroup);
+        GroupUser gu = new GroupUser();
+        gu.setId(new GroupUsersID(newGroup,user));
+        gu.setRole(GroupRole.ADMIN);
+        gu.setStatus(GroupUserStatus.ACTIVE);
+        groupUserDao.save(gu);
+        return groupMapper.modelToDto(newGroup);
     }
 
     @Override
