@@ -18,6 +18,7 @@
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.23.1",
     "css-loader": "^6.7.3",
+    "js-cookie": "^3.0.5",
     "style-loader": "^3.3.2",
     "vue": "^2.7.14",
     "vue-loader": "^15.10.0",

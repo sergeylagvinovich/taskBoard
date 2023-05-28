@@ -6,9 +6,11 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../styles/css/main.css'
+
 // require('./../css/main.css');
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
+Vue.use(require("js-cookie"));
 
 import {router} from "./routes/routes";
 

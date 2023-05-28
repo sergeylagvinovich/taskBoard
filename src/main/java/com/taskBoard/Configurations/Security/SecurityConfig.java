@@ -32,6 +32,7 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .authorizeHttpRequests()
                 .requestMatchers(
+                        "/taskBoard/**",
                         "/api/auth/**"
                 )
                 .permitAll()

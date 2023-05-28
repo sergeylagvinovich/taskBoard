@@ -5,7 +5,7 @@
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-            <b-collapse id="nav-collapse" is-nav>
+            <b-collapse id="nav-collapse" is-nav v-if="!isRegisterLogin">
                 <b-navbar-nav>
                     <b-nav-item :to="{ name: 'HomeBoards' }" exact exact-active-class="active">{{lang['home']}}</b-nav-item>
                     <b-nav-item :to="{ name: 'About' }" exact exact-active-class="active">{{lang['about']}}</b-nav-item>
@@ -41,6 +41,9 @@ import {mapGetters, mapMutations} from "vuex";
 export default {
     name: "Navbar",
     computed:{
+        isRegisterLogin(){
+          return this.$route.name.includes("Auth");
+        },
         lang(){
             return this.getLang;
         },

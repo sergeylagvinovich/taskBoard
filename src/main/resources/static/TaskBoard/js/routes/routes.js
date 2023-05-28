@@ -12,6 +12,7 @@ import PageNotFound from "../Components/PageNotFound.vue";
 import BoardPage from "../Components/Board/BoardPage.vue";
 import Workspace from "../Components/Board/Workspace/Workspace.vue";
 import TaskCard from "../Components/Board/Workspace/TaskCard/TaskCard.vue";
+import Login from "../Components/Auth/Login.vue";
 
 Vue.use(VueRouter);
 const baseUrl = '/taskBoard'
@@ -36,6 +37,11 @@ const routes = [
                 component: Groups,
             },
         ],
+    },
+    {
+        path: baseUrl+'/login',
+        name: 'AuthLogin',
+        component:Login,
     },
     {
         path: baseUrl+'/about',
