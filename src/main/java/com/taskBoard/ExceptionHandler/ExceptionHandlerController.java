@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 
 @ControllerAdvice
 public class ExceptionHandlerController {
@@ -38,6 +39,18 @@ public class ExceptionHandlerController {
                 .setCode(HttpStatus.NOT_FOUND.value())
                 .setMessage(exception.getMessage());
         return new ResponseEntity<>(responseApi,HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({AccessDeniedException.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseEntity<ResponseApi> handleNotFoundError(
+            AccessDeniedException exception,
+            WebRequest request
+    ){
+        ResponseApi responseApi = new ResponseApi()
+                .setCode(HttpStatus.FORBIDDEN.value())
+                .setMessage(exception.getMessage());
+        return new ResponseEntity<>(responseApi,HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler({SecurityException.class})

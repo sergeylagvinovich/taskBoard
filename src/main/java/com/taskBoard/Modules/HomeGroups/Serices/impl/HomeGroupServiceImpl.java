@@ -27,7 +27,7 @@ public class HomeGroupServiceImpl implements HomeGroupService {
     @Override
     public HomeGroupsPage getGroupsForUser(UUID user_uuid, Pageable pageable) {
 
-        Page<Object[]> groups = groupDao.getGroupsForUser(user_uuid,pageable);
+        Page<Object[]> groups = groupDao.getGroups(user_uuid,pageable);
         PageDto page = PageDto.builder()
                 .size(groups.getSize())
                 .page(groups.getPageable().getPageNumber())

@@ -41,6 +41,7 @@ public class GroupUser {
     protected GroupUserStatus status;
 
     @Column
+    @CreationTimestamp
     protected Timestamp createdAt;
 
     @Column

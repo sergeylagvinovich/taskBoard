@@ -19,6 +19,7 @@ import com.taskBoard.Modules.Group.Dto.GroupDto;
 import com.taskBoard.Modules.Group.Services.GroupService;
 import com.taskBoard.Configurations.Security.JwtToken.JwtAuthentication;
 import com.taskBoard.core.Base.ResponseApi;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +28,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -61,6 +63,15 @@ public class GroupController {
             @PathVariable(name = "uuid_group") UUID groupUUID
             ){
         GroupDto gdto = groupService.getGroup(groupUUID);
+        return new ResponseEntity<>(gdto, HttpStatus.OK);
+    }
+
+    @PutMapping("/{uuid_group}")
+    public ResponseEntity<GroupDto> editGroup(@AuthenticationPrincipal User user,
+                                              @PathVariable(name = "uuid_group") UUID groupUUID,
+                                              @RequestBody GroupDto groupDto
+    ) throws AccessDeniedException {
+        GroupDto gdto = groupService.edit(groupUUID,groupDto,user);
         return new ResponseEntity<>(gdto, HttpStatus.OK);
     }
 

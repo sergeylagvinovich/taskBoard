@@ -6,12 +6,11 @@ import com.taskBoard.Dao.BoardDoa;
 import com.taskBoard.Dao.GroupDao;
 import com.taskBoard.Dao.GroupUserDao;
 import com.taskBoard.ExceptionHandler.Exceptions.NotFoundException;
+import com.taskBoard.Models.BaseModel;
+import com.taskBoard.Models.Groups.*;
 import com.taskBoard.Models.Groups.Composite.GroupUsersID;
-import com.taskBoard.Models.Groups.Group;
-import com.taskBoard.Models.Groups.GroupRole;
-import com.taskBoard.Models.Groups.GroupUser;
-import com.taskBoard.Models.Groups.GroupUserStatus;
 import com.taskBoard.Models.User;
+import com.taskBoard.Modules.Group.Components.GroupProvider;
 import com.taskBoard.Modules.Group.Dto.BoardDto;
 import com.taskBoard.Modules.Group.Dto.GroupDto;
 import com.taskBoard.Modules.Group.Dto.GroupUserDto;
@@ -19,16 +18,17 @@ import com.taskBoard.Modules.Group.Dto.NewGroupDto;
 import com.taskBoard.Modules.Group.Mappers.BoardMapper;
 import com.taskBoard.Modules.Group.Mappers.GroupMapper;
 import com.taskBoard.Modules.Group.Services.GroupService;
-import com.taskBoard.ExceptionHandler.ResponseMessageException;
-import com.taskBoard.Modules.Group.Views.Views;
+
+import lombok.SneakyThrows;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -43,12 +43,15 @@ public class GroupServiceImpl implements GroupService {
     @Autowired
     private GroupUserDao groupUserDao;
 
+
+    @Autowired
+    private GroupProvider groupProvider;
+
     private final GroupMapper groupMapper
             = Mappers.getMapper(GroupMapper.class);
     private final BoardMapper boardMapper
             = Mappers.getMapper(BoardMapper.class);
     @Override
-//    @JsonView(Views.GroupInfo.class)
     public GroupDto getGroup(UUID group_uuid) {
         Group g = groupDao.findById(group_uuid).orElseThrow(()->new NotFoundException("Группа не найдена"));
         return  groupMapper.modelToDto(g);
@@ -58,6 +61,10 @@ public class GroupServiceImpl implements GroupService {
     @Transactional
     public GroupDto create(NewGroupDto newGroupDto, User user) {
         Group newGroup = groupMapper.newGroupDtoToModel(newGroupDto);
+        newGroup.setStatusRow(BaseModel.StatusRow.ACTIVE);
+        GroupSettings groupSettings = new GroupSettings();
+        groupSettings.setGroup(newGroup);
+        newGroup.setGroupSettings(groupSettings);
         newGroup = groupDao.save(newGroup);
         GroupUser gu = new GroupUser();
         gu.setId(new GroupUsersID(newGroup,user));
@@ -65,6 +72,22 @@ public class GroupServiceImpl implements GroupService {
         gu.setStatus(GroupUserStatus.ACTIVE);
         groupUserDao.save(gu);
         return groupMapper.modelToDto(newGroup);
+    }
+
+    @Override
+    public GroupDto edit(UUID groupUUID, GroupDto groupDto, User user) throws AccessDeniedException {
+        Group group = groupDao.findByUUID(groupUUID).orElseThrow(()->new NotFoundException("Группа не найдена"));
+        if(groupProvider.canMakeAction(user,group,GroupSettings.ActionType.EDIT_GROUP)){
+            group.setNote(groupDto.getNote());
+            group.setShortName(groupDto.getShortName());
+            group.setFullName(groupDto.getFullName());
+            group.setUrl(groupDto.getUrl());
+            group.setUpdated_user(user);
+            groupDao.save(group);
+        }else {
+            throw new AccessDeniedException("Недостаточно прав для данной операции");
+        }
+        return  groupMapper.modelToDto(group);
     }
 
     @Override
@@ -98,4 +121,5 @@ public class GroupServiceImpl implements GroupService {
     public Boolean delete(UUID group_uuid) {
         return null;
     }
+
 }

@@ -37,4 +37,9 @@ public class BaseModel {
         return baseObj.UUID.equals(this.UUID);
     }
 
+    public enum StatusRow{
+        DELETED,
+        ACTIVE,
+    }
+
 }
