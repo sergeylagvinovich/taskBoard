@@ -5,7 +5,7 @@ import com.taskBoard.Dao.BoardDoa;
 import com.taskBoard.Dao.GroupDao;
 import com.taskBoard.Dao.GroupUserDao;
 import com.taskBoard.Modules.Auth.Services.AuthService;
-import com.taskBoard.Modules.Group.Dto.NewGroupDto;
+import com.taskBoard.Modules.Group.Dto.EditGroupDto;
 import com.taskBoard.Modules.Users.Dao.UserDao;
 import com.taskBoard.Models.Boards.Board;
 import com.taskBoard.Models.Groups.Composite.GroupUsersID;
@@ -17,9 +17,7 @@ import com.taskBoard.Models.User;
 import com.taskBoard.Modules.Group.Dto.BoardDto;
 import com.taskBoard.Modules.Group.Dto.GroupDto;
 import com.taskBoard.Modules.Group.Services.GroupService;
-import com.taskBoard.Configurations.Security.JwtToken.JwtAuthentication;
 import com.taskBoard.core.Base.ResponseApi;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -69,14 +67,14 @@ public class GroupController {
     @PutMapping("/{uuid_group}")
     public ResponseEntity<GroupDto> editGroup(@AuthenticationPrincipal User user,
                                               @PathVariable(name = "uuid_group") UUID groupUUID,
-                                              @RequestBody GroupDto groupDto
+                                              @RequestBody EditGroupDto groupDto
     ) throws AccessDeniedException {
         GroupDto gdto = groupService.edit(groupUUID,groupDto,user);
         return new ResponseEntity<>(gdto, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<GroupDto> createGroup(@AuthenticationPrincipal User user, @RequestBody NewGroupDto newGroupDto){
+    public ResponseEntity<GroupDto> createGroup(@AuthenticationPrincipal User user, @RequestBody EditGroupDto newGroupDto){
         GroupDto gdto = groupService.create(newGroupDto, user);
         return new ResponseEntity<>(gdto, HttpStatus.OK);
     }

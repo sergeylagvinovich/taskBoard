@@ -3,8 +3,8 @@ package com.taskBoard.Modules.Group.Mappers;
 import com.taskBoard.Models.Groups.Group;
 import com.taskBoard.Models.Groups.GroupRole;
 import com.taskBoard.Models.Groups.GroupUser;
+import com.taskBoard.Modules.Group.Dto.EditGroupDto;
 import com.taskBoard.Modules.Group.Dto.GroupDto;
-import com.taskBoard.Modules.Group.Dto.NewGroupDto;
 import org.mapstruct.*;
 
 import java.util.UUID;
@@ -15,7 +15,7 @@ public interface GroupMapper {
     @Mapping(target = "id",source = "UUID")
     GroupDto modelToDto(Group group);
 
-    Group newGroupDtoToModel(NewGroupDto newGroupDto);
+    Group newGroupDtoToModel(EditGroupDto newGroupDto);
 
     @AfterMapping
     public default void setCurrentRole(Group group, @MappingTarget GroupDto target){

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewGroupDto {
+public class EditGroupDto {
 
     private String shortName;
     private String fullName;

@@ -1,6 +1,5 @@
 package com.taskBoard.Modules.Group.Services.impl;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.taskBoard.Dao.BoardDoa;
 import com.taskBoard.Dao.GroupDao;
@@ -12,17 +11,14 @@ import com.taskBoard.Models.Groups.Composite.GroupUsersID;
 import com.taskBoard.Models.User;
 import com.taskBoard.Modules.Group.Components.GroupProvider;
 import com.taskBoard.Modules.Group.Dto.BoardDto;
+import com.taskBoard.Modules.Group.Dto.EditGroupDto;
 import com.taskBoard.Modules.Group.Dto.GroupDto;
 import com.taskBoard.Modules.Group.Dto.GroupUserDto;
-import com.taskBoard.Modules.Group.Dto.NewGroupDto;
 import com.taskBoard.Modules.Group.Mappers.BoardMapper;
 import com.taskBoard.Modules.Group.Mappers.GroupMapper;
 import com.taskBoard.Modules.Group.Services.GroupService;
-
-import lombok.SneakyThrows;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,7 +55,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public GroupDto create(NewGroupDto newGroupDto, User user) {
+    public GroupDto create(EditGroupDto newGroupDto, User user) {
         Group newGroup = groupMapper.newGroupDtoToModel(newGroupDto);
         newGroup.setStatusRow(BaseModel.StatusRow.ACTIVE);
         GroupSettings groupSettings = new GroupSettings();
@@ -75,7 +71,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public GroupDto edit(UUID groupUUID, GroupDto groupDto, User user) throws AccessDeniedException {
+    public GroupDto edit(UUID groupUUID, EditGroupDto groupDto, User user) throws AccessDeniedException {
         Group group = groupDao.findByUUID(groupUUID).orElseThrow(()->new NotFoundException("Группа не найдена"));
         if(groupProvider.canMakeAction(user,group,GroupSettings.ActionType.EDIT_GROUP)){
             group.setNote(groupDto.getNote());
