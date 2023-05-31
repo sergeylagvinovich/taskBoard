@@ -10,21 +10,22 @@ import com.taskBoard.Models.Groups.*;
 import com.taskBoard.Models.Groups.Composite.GroupUsersID;
 import com.taskBoard.Models.User;
 import com.taskBoard.Modules.Group.Components.GroupProvider;
-import com.taskBoard.Modules.Group.Dto.BoardDto;
-import com.taskBoard.Modules.Group.Dto.EditGroupDto;
-import com.taskBoard.Modules.Group.Dto.GroupDto;
-import com.taskBoard.Modules.Group.Dto.GroupUserDto;
+import com.taskBoard.Modules.Group.Dto.*;
 import com.taskBoard.Modules.Group.Mappers.BoardMapper;
 import com.taskBoard.Modules.Group.Mappers.GroupMapper;
 import com.taskBoard.Modules.Group.Services.GroupService;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -43,14 +44,34 @@ public class GroupServiceImpl implements GroupService {
     @Autowired
     private GroupProvider groupProvider;
 
-    private final GroupMapper groupMapper
-            = Mappers.getMapper(GroupMapper.class);
+    private final GroupMapper groupMapper = GroupMapper.INSTANCE;
+
     private final BoardMapper boardMapper
             = Mappers.getMapper(BoardMapper.class);
+
     @Override
     public GroupDto getGroup(UUID group_uuid) {
         Group g = groupDao.findById(group_uuid).orElseThrow(()->new NotFoundException("Группа не найдена"));
         return  groupMapper.modelToDto(g);
+    }
+
+    @Override
+    public GroupsPageableDto getGroups(UUID user_uuid, Integer page, Integer size) {
+        if(page == null){
+            page = 0;
+        }
+        if(size == null){
+            size = 10;
+        }
+        Pageable pagination = PageRequest.of(page, size);
+        Page<Map<String,Object>> pageDb = groupDao.getGroups(user_uuid, pagination);
+        List<GroupDto> groups = groupMapper.objectsToDtos(pageDb.getContent());
+        GroupsPageableDto groupsPageableDto = new GroupsPageableDto();
+        groupsPageableDto.setGroups(groups);
+        groupsPageableDto.setSize(pageDb.getSize());
+        groupsPageableDto.setTotal(pageDb.getTotalPages());
+        groupsPageableDto.setPage(pageDb.getPageable().getPageNumber());
+        return groupsPageableDto;
     }
 
     @Override

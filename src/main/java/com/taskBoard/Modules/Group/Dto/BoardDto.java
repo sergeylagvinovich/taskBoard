@@ -13,4 +13,5 @@ public class BoardDto {
     String id = null;
     String name = null;
 
+
 }

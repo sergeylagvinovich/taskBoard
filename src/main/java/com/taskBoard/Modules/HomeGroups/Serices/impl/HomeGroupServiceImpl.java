@@ -27,22 +27,23 @@ public class HomeGroupServiceImpl implements HomeGroupService {
     @Override
     public HomeGroupsPage getGroupsForUser(UUID user_uuid, Pageable pageable) {
 
-        Page<Object[]> groups = groupDao.getGroups(user_uuid,pageable);
-        PageDto page = PageDto.builder()
-                .size(groups.getSize())
-                .page(groups.getPageable().getPageNumber())
-                .total(groups.getTotalPages()).build();
-        List<HomeGroupsDto> homeGroupsDtos = new ArrayList<>();
-        List<Object[]> content = groups.getContent();
-
-        for (int i = 0; i < content.size(); i++) {
-            try {
-                homeGroupsDtos.add(new HomeGroupsDto(content.get(i)));
-            } catch (JsonProcessingException e) {
-                throw new HomeGroupException("Возникла проблема с полученим данных");
-            }
-        }
-        return HomeGroupsPage.builder().page(page).groups(homeGroupsDtos).build();
+//        Page<Object[]> groups = groupDao.getGroups(user_uuid,pageable);
+//        PageDto page = PageDto.builder()
+//                .size(groups.getSize())
+//                .page(groups.getPageable().getPageNumber())
+//                .total(groups.getTotalPages()).build();
+//        List<HomeGroupsDto> homeGroupsDtos = new ArrayList<>();
+//        List<Object[]> content = groups.getContent();
+//
+//        for (int i = 0; i < content.size(); i++) {
+//            try {
+//                homeGroupsDtos.add(new HomeGroupsDto(content.get(i)));
+//            } catch (JsonProcessingException e) {
+//                throw new HomeGroupException("Возникла проблема с полученим данных");
+//            }
+//        }
+//        return HomeGroupsPage.builder().page(page).groups(homeGroupsDtos).build();
+        return null;
 
     }
 

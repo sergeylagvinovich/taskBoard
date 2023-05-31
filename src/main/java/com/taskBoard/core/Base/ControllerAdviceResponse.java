@@ -1,7 +1,8 @@
 package com.taskBoard.core.Base;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.taskBoard.Modules.Group.Controllers.GroupController;
-import com.taskBoard.Modules.Group.Views.Views;
+import com.taskBoard.Modules.Group.Views.GroupViews;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJacksonValue;
@@ -17,12 +18,19 @@ public class ControllerAdviceResponse extends AbstractMappingJacksonResponseBody
     @Override
     protected void beforeBodyWriteInternal(MappingJacksonValue bodyContainer, MediaType contentType, MethodParameter returnType,
                                            ServerHttpRequest req, ServerHttpResponse res) {
-        ServletServerHttpRequest request = (ServletServerHttpRequest)req;
-        String view = request.getServletRequest().getParameter("details");
-        if ("all".equals(view)) {
-            bodyContainer.setSerializationView(Views.GroupInfoDetails.class);
-        }else{
-            bodyContainer.setSerializationView(Views.GroupInfo.class);
-        }
+//        returnType.getMethod().getName()
+//        if(returnType.getMethodAnnotation(JsonView.class)!=null) {
+//            ServletServerHttpRequest request = (ServletServerHttpRequest) req;
+//            String view = request.getServletRequest().getParameter("details");
+//            if ("all".equalsIgnoreCase(view)) {
+//                bodyContainer.setSerializationView(GroupViews.GroupInfoAll.class);
+//            } else if ("settings".equalsIgnoreCase(view)){
+//                bodyContainer.setSerializationView(GroupViews.GroupInfoSettings.class);
+//            } else if ("boards".equalsIgnoreCase(view)) {
+//                bodyContainer.setSerializationView(GroupViews.GroupInfoBoards.class);
+//            }else {
+//                bodyContainer.setSerializationView(GroupViews.GroupInfo.class);
+//            }
+//        }
     }
 }
