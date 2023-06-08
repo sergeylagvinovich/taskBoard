@@ -36,12 +36,12 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public JwtResponse login(JwtRequest authRequest) throws AuthException {
-        final User user = userService.getUserByEmail(authRequest.getEmail())
+        User user = userService.getUserByEmail(authRequest.getEmail())
                 .orElseThrow(() -> new AuthException("Пользователь не найден"));
         boolean passwordConfirm = passwordEncoder.matches(authRequest.getPassword(),user.getPassword());
         if (passwordConfirm) {
-            final String accessToken = jwtProvider.generateAccessToken(user);
-            final String refreshToken = jwtProvider.generateRefreshToken(user);
+            String accessToken = jwtProvider.generateAccessToken(user);
+            String refreshToken = jwtProvider.generateRefreshToken(user);
             refreshStorage.put(user.getEmail(), refreshToken);
             return new JwtResponse(accessToken, refreshToken);
         } else {
@@ -52,13 +52,13 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public JwtResponse getAccessToken(String refreshToken) throws AuthException {
         if (jwtProvider.validateRefreshToken(refreshToken)) {
-            final Claims claims = jwtProvider.getRefreshClaims(refreshToken);
-            final String email = claims.getSubject();
-            final String saveRefreshToken = refreshStorage.get(email);
+            Claims claims = jwtProvider.getRefreshClaims(refreshToken);
+            String email = claims.getSubject();
+            String saveRefreshToken = refreshStorage.get(email);
             if (saveRefreshToken != null && saveRefreshToken.equals(refreshToken)) {
-                final User user = userService.getUserByEmail(email)
+                User user = userService.getUserByEmail(email)
                         .orElseThrow(() -> new AuthException("Пользователь не найден"));
-                final String accessToken = jwtProvider.generateAccessToken(user);
+                String accessToken = jwtProvider.generateAccessToken(user);
                 return new JwtResponse(accessToken, null);
             }
         }
@@ -68,14 +68,14 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public JwtResponse refresh(String refreshToken) throws AuthException {
         if (jwtProvider.validateRefreshToken(refreshToken)) {
-            final Claims claims = jwtProvider.getRefreshClaims(refreshToken);
-            final String email = claims.getSubject();
-            final String saveRefreshToken = refreshStorage.get(email);
+            Claims claims = jwtProvider.getRefreshClaims(refreshToken);
+            String email = claims.getSubject();
+            String saveRefreshToken = refreshStorage.get(email);
             if (saveRefreshToken != null && saveRefreshToken.equals(refreshToken)) {
-                final User user = userService.getUserByEmail(email)
+                User user = userService.getUserByEmail(email)
                         .orElseThrow(() -> new AuthException("Пользователь не найден"));
-                final String accessToken = jwtProvider.generateAccessToken(user);
-                final String newRefreshToken = jwtProvider.generateRefreshToken(user);
+                String accessToken = jwtProvider.generateAccessToken(user);
+                String newRefreshToken = jwtProvider.generateRefreshToken(user);
                 refreshStorage.put(user.getEmail(), newRefreshToken);
                 return new JwtResponse(accessToken, newRefreshToken);
             }
@@ -90,7 +90,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public JwtResponse registration(NewUserDto newUser) throws AuthException {
-        User user = userService.createUser(newUser);
+        userService.createUser(newUser);
         JwtRequest jwtRequest = new JwtRequest(newUser.getEmail(),newUser.getPassword());
         return this.login(jwtRequest);
     }

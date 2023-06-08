@@ -1,6 +1,7 @@
 package com.taskBoard.ExceptionHandler;
 
 import com.taskBoard.Configurations.Responces.ResponseAPIDto;
+import com.taskBoard.ExceptionHandler.Exceptions.BaseException;
 import com.taskBoard.ExceptionHandler.Exceptions.NotFoundException;
 import com.taskBoard.Modules.HomeGroups.Exceptions.HomeGroupException;
 import com.taskBoard.core.Base.ResponseApi;
@@ -18,52 +19,21 @@ import java.nio.file.AccessDeniedException;
 @ControllerAdvice
 public class ExceptionHandlerController {
 
-    @ExceptionHandler({RuntimeException.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler({BaseException.class})
     public ResponseEntity<ResponseApi> handleInternalServerError(
-            RuntimeException exception,
+            BaseException exception,
             WebRequest request
     ){
-        ResponseApi responseApi = new ResponseApi().setCode(HttpStatus.INTERNAL_SERVER_ERROR.value()).setMessage(exception.getMessage());
-        return new ResponseEntity<>(responseApi,HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseApi responseApi =
+                 ResponseApi.builder()
+                .code(exception.getHttpStatus().value())
+                .message(exception.getMessage()).build();
+
+        return new ResponseEntity<>(responseApi,exception.getHttpStatus());
     }
 
 
-    @ExceptionHandler({NotFoundException.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<ResponseApi> handleNotFoundError(
-            RuntimeException exception,
-            WebRequest request
-    ){
-        ResponseApi responseApi = new ResponseApi()
-                .setCode(HttpStatus.NOT_FOUND.value())
-                .setMessage(exception.getMessage());
-        return new ResponseEntity<>(responseApi,HttpStatus.NOT_FOUND);
-    }
 
-    @ExceptionHandler({AccessDeniedException.class})
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseEntity<ResponseApi> handleNotFoundError(
-            AccessDeniedException exception,
-            WebRequest request
-    ){
-        ResponseApi responseApi = new ResponseApi()
-                .setCode(HttpStatus.FORBIDDEN.value())
-                .setMessage(exception.getMessage());
-        return new ResponseEntity<>(responseApi,HttpStatus.FORBIDDEN);
-    }
-
-    @ExceptionHandler({SecurityException.class})
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ResponseEntity<ResponseApi> handleNotFoundError(
-            SecurityException exception,
-            WebRequest request
-    ){
-        ResponseApi responseApi = new ResponseApi()
-                .setCode(HttpStatus.UNAUTHORIZED.value())
-                .setMessage(exception.getMessage());
-        return new ResponseEntity<>(responseApi,HttpStatus.UNAUTHORIZED);
-    }
 
 
 

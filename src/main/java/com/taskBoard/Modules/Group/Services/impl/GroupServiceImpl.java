@@ -11,6 +11,7 @@ import com.taskBoard.Models.Groups.Composite.GroupUsersID;
 import com.taskBoard.Models.User;
 import com.taskBoard.Modules.Group.Components.GroupProvider;
 import com.taskBoard.Modules.Group.Dto.*;
+import com.taskBoard.Modules.Group.Exceptions.GroupNotFoundException;
 import com.taskBoard.Modules.Group.Mappers.BoardMapper;
 import com.taskBoard.Modules.Group.Mappers.GroupMapper;
 import com.taskBoard.Modules.Group.Services.GroupService;
@@ -51,7 +52,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public GroupDto getGroup(UUID group_uuid) {
-        Group g = groupDao.findById(group_uuid).orElseThrow(()->new NotFoundException("Группа не найдена"));
+        Group g = groupDao.findById(group_uuid).orElseThrow(()->new GroupNotFoundException("Группа не найдена"));
         return  groupMapper.modelToDto(g);
     }
 
@@ -93,7 +94,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public GroupDto edit(UUID groupUUID, EditGroupDto groupDto, User user) throws AccessDeniedException {
-        Group group = groupDao.findByUUID(groupUUID).orElseThrow(()->new NotFoundException("Группа не найдена"));
+        Group group = groupDao.findByUUID(groupUUID).orElseThrow(()->new GroupNotFoundException("Группа не найдена"));
         if(groupProvider.canMakeAction(user,group,GroupSettings.ActionType.EDIT_GROUP)){
             group.setNote(groupDto.getNote());
             group.setShortName(groupDto.getShortName());

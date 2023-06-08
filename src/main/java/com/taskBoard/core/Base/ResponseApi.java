@@ -1,29 +1,16 @@
 package com.taskBoard.core.Base;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseApi<T> {
+public class ResponseApi {
 
     private int code;
     private String message;
-    private T data;
 
-    public ResponseApi<T> setCode (int code){
-        this.code = code;
-        return this;
-    }
-
-    public ResponseApi<T> setMessage (String message){
-        this.message = message;
-        return this;
-    }
-
-    public ResponseApi<T> setData (T data){
-        this.data = data;
-        return this;
-    }
 
 }
